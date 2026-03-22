@@ -107,13 +107,30 @@
 
         .nav-logo {
             font-family: 'DM Sans', sans-serif;
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: var(--primary);
             cursor: pointer;
-            white-space: nowrap;
-            letter-spacing: -0.03em;
+            line-height: 1.15;
+            overflow: hidden;
+            max-width: calc(100% - 60px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-logo-line1 {
+            font-size: 1.34rem;
+            font-weight: 990;
+            color: var(--primary);
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+        }
+
+        .nav-logo-line2 {
+            font-size: 1.0rem;
+            font-weight: 400;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
         }
 
         .nav-menu-bar {
@@ -371,22 +388,21 @@
             margin: 0 auto;
             padding: 0 2rem 4rem;
             padding-top: 115px;
-            /* two-bar nav height */
         }
 
         .content-page-header {
             background: var(--primary);
-            margin: 0 -2rem 3.5rem;
-            padding: 4.5rem 2rem 3.5rem;
+            margin: 0 -2rem 2.5rem;
+            padding: 3.5rem 2rem 3rem;
             position: relative;
         }
 
         .content-page h1 {
             font-family: 'DM Sans', sans-serif;
-            font-size: 4.2rem;
+            font-size: 3.2rem;
             font-weight: 700;
             letter-spacing: -0.03em;
-            line-height: 1.0;
+            line-height: 1.05;
             color: #ffffff;
             margin-bottom: 0;
         }
@@ -398,22 +414,21 @@
             height: 3px;
             background: var(--accent);
             border-radius: 2px;
-            margin-top: 1.4rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         .page-location {
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            margin-top: 1rem;
         }
 
         .page-location span {
-            font-size: 0.78rem;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.28em;
-            text-transform: uppercase;
-            font-weight: 500;
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.04em;
+            font-weight: 400;
             font-family: 'DM Sans', sans-serif;
         }
 
@@ -570,17 +585,18 @@
 
         .tp-masthead {
             background: var(--primary);
-            margin: 0 -2rem 4rem;
-            padding: 4.5rem 2rem 3.5rem;
+            margin: 0 -2rem 3rem;
+            padding: 3.5rem 2rem 3.5rem;
+            position: relative;
         }
 
         .tp-title {
             font-family: 'DM Sans', sans-serif;
-            font-size: 4.2rem;
+            font-size: 3.2rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: -0.03em;
-            line-height: 1.0;
+            line-height: 1.05;
             margin-bottom: 0;
         }
 
@@ -591,15 +607,20 @@
             height: 3px;
             background: var(--accent);
             border-radius: 2px;
-            margin-top: 1.4rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         .tp-subtitle {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.55);
             max-width: 560px;
             line-height: 1.65;
-            margin-top: 1rem;
+            font-weight: 400;
+        }
+
+        .tp-subtitle-below {
+            display: none;
         }
 
         .tp-section {
@@ -710,27 +731,82 @@
             margin-top: 0.2rem;
         }
 
-        /* ANIMATIONS */
+        /* ── PAGE ENTER ANIMATIONS ── */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(24px)
+                transform: translateY(22px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0)
+                transform: translateY(0);
             }
         }
 
         @keyframes fadeIn {
             from {
-                opacity: 0
+                opacity: 0;
             }
 
             to {
-                opacity: 1
+                opacity: 1;
             }
+        }
+
+        .page-enter {
+            animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .page-enter-delay-1 {
+            animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+        }
+
+        .page-enter-delay-2 {
+            animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+        }
+
+        .page-enter-delay-3 {
+            animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+        }
+
+        .content-page-header {
+            animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .tp-masthead {
+            animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .c-group {
+            animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        }
+
+        .tp-subtitle-below {
+            animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        }
+
+        .tp-section {
+            animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        }
+
+        /* play button pulse */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
+            }
+
+            70% {
+                box-shadow: 0 0 0 18px rgba(255, 255, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        .play-btn-pulse {
+            animation: pulse 2s infinite;
         }
 
         /* HAMBURGER */
@@ -739,33 +815,14 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 6px;
-            background: none;
-            border: none;
-        }
-
-        .nav-hamburger span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--blue);
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-
-        /* RESPONSIVE */
-        .nav-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 6px;
+            padding: 8px;
             background: none;
             border: none;
             position: absolute;
             right: 1.5rem;
             top: 50%;
             transform: translateY(-50%);
+            z-index: 1100;
         }
 
         .nav-hamburger span {
@@ -774,12 +831,40 @@
             height: 2px;
             background: var(--blue);
             border-radius: 2px;
-            transition: all 0.3s;
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.22s ease,
+                width 0.22s ease;
+            transform-origin: center;
+        }
+
+        /* ── MOBILE MENU — rendered outside nav-menu-bar, not affected by its display:none ── */
+        .mobile-menu {
+            display: none;
+        }
+
+        /* Silky hamburger → X animation */
+        @keyframes menuSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scaleY(0.92);
+                transform-origin: top center;
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scaleY(1);
+                transform-origin: top center;
+            }
         }
 
         @media(max-width:860px) {
-            .nav-links {
-                display: none;
+            .nav-logo {
+                max-width: calc(100% - 52px);
+            }
+
+            .nav-logo-line1,
+            .nav-logo-line2 {
+                font-size: 0.82rem;
             }
 
             .nav-hamburger {
@@ -790,7 +875,12 @@
                 display: none;
             }
 
-            .nav-links.open {
+            .content-page-header,
+            .tp-masthead {
+                min-height: 100px;
+            }
+
+            .mobile-menu {
                 display: flex;
                 flex-direction: column;
                 position: fixed;
@@ -799,88 +889,67 @@
                 right: 0;
                 background: #0d2e45;
                 border-bottom: 3px solid var(--accent);
-                box-shadow: 0 12px 32px rgba(26, 74, 107, 0.25);
+                box-shadow: 0 16px 40px rgba(13, 46, 69, 0.35);
                 padding: 0.5rem 0 1rem;
-                gap: 0;
-                animation: fadeIn 0.2s ease;
-                z-index: 999;
+                z-index: 1050;
+                animation: menuSlideDown 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+                max-height: calc(100vh - 72px);
+                overflow-y: auto;
             }
 
-            .nav-item {
+            .mobile-menu .nav-item {
                 width: 100%;
             }
 
-            .nav-link {
+            .mobile-menu .nav-link {
                 font-size: 0.78rem;
                 padding: 0.75rem 1.5rem;
                 height: auto;
+                display: flex;
                 justify-content: space-between;
-                border-bottom-color: transparent !important;
-                background: none !important;
-                color: rgba(255, 255, 255, 0.85) !important;
+                align-items: center;
+                color: rgba(255, 255, 255, 0.85);
                 letter-spacing: 0.1em;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+                cursor: pointer;
+                text-transform: uppercase;
+                font-weight: 700;
+                background: none;
+                transition: background 0.18s ease, color 0.18s ease;
                 margin-bottom: 0;
             }
 
-            .nav-link:hover {
-                background: rgba(255, 255, 255, 0.07) !important;
-                color: white !important;
+            .mobile-menu .nav-link:hover,
+            .mobile-menu .nav-link:active {
+                background: rgba(255, 255, 255, 0.07);
+                color: white;
             }
 
-            .nav-dropdown {
-                position: static !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                transform: none !important;
-                box-shadow: none !important;
-                border: none !important;
-                border-radius: 0 !important;
-                min-width: unset !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                background: rgba(0, 0, 0, 0.2) !important;
-                border-top: none !important;
+            .mob-dropdown {
+                background: rgba(0, 0, 0, 0.2);
+                overflow: hidden;
+                animation: menuSlideDown 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
             }
 
-            .nav-dropdown-item {
+            .mob-dropdown .nav-dropdown-item {
                 padding: 0.6rem 1.5rem 0.6rem 2.5rem;
                 font-size: 0.72rem;
                 border-radius: 0;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                color: rgba(255, 255, 255, 0.75) !important;
+                color: rgba(255, 255, 255, 0.75);
+                display: block;
+                cursor: pointer;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-weight: 600;
+                transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
             }
 
-            .nav-dropdown-item:hover {
-                background: rgba(255, 255, 255, 0.07) !important;
-                color: white !important;
-                padding-left: 2.5rem;
-            }
-
-            .nav-sub-dropdown {
-                position: static !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                transform: none !important;
-                box-shadow: none !important;
-                border: none !important;
-                border-radius: 0 !important;
-                min-width: unset !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                background: rgba(0, 0, 0, 0.25) !important;
-                border-top: none !important;
-            }
-
-            .nav-sub-dropdown .nav-dropdown-item {
-                padding-left: 3.5rem;
-                font-size: 0.69rem;
-            }
-
-            .nav-sub-item>.nav-dropdown-item::after {
-                content: '';
+            .mob-dropdown .nav-dropdown-item:hover,
+            .mob-dropdown .nav-dropdown-item:active {
+                background: rgba(255, 255, 255, 0.09);
+                color: white;
+                padding-left: 2.9rem;
             }
         }
 
@@ -900,11 +969,25 @@
             }
 
             .content-page h1 {
-                font-size: 2.8rem;
+                font-size: 2rem;
             }
 
             .content-page {
-                padding: 9.5rem 1rem 3rem;
+                padding: 80px 1rem 3rem;
+            }
+
+            .content-page-header {
+                padding: 2rem 1.25rem 2rem;
+                margin: 0 -1rem 2rem;
+            }
+
+            .tp-masthead {
+                padding: 2rem 1.25rem 2rem;
+                margin: 0 -1rem 0;
+            }
+
+            .tp-title {
+                font-size: 2rem;
             }
         }
 
@@ -915,16 +998,12 @@
         }
 
         @media(max-width:500px) {
-            .tp-title {
-                font-size: 2.8rem;
-            }
-
             .tp-card {
                 width: calc(50% - 0.75rem);
             }
 
             .tp-page {
-                padding: 9.5rem 1rem 3rem;
+                padding: 80px 1rem 3rem;
             }
         }
     </style>
@@ -987,7 +1066,7 @@
 
         function SubNav({ items, active }) {
             return (
-                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+                <div className="page-enter-delay-2" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
                     {items.map(item => (
                         <button key={item.key} onClick={() => { window.location.hash = item.key; }}
                             style={{ padding: '0.6rem 1.4rem', background: active === item.key ? 'var(--primary)' : 'var(--white)', color: active === item.key ? 'var(--white)' : 'var(--primary)', border: '1.5px solid var(--primary)', borderRadius: '50px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '500', transition: 'var(--transition-smooth)', fontFamily: "'DM Sans',sans-serif", boxShadow: active === item.key ? 'var(--shadow-sm)' : 'none' }}>
@@ -1034,44 +1113,46 @@
                 <nav className="nav">
                     <div className="nav-brand-bar">
                         <div className="nav-content">
-                            <div className="nav-logo" onClick={() => navigate('home')}>Envisioning Climate Futures</div>
+                            <div className="nav-logo" onClick={() => navigate('home')}>
+                                <span className="nav-logo-line1">Envisioning</span>
+                                <span className="nav-logo-line2">Climate Futures</span>
+                            </div>
                             <Burger />
                         </div>
                     </div>
+                    {/* Desktop: nav-menu-bar shown; Mobile: hidden via CSS */}
                     <div className="nav-menu-bar">
                         <div className="nav-menu-content">
-                            <div className={`nav-links${menuOpen ? ' open' : ''}`}>
+                            <div className="nav-links desktop-only">
+                                {/* ── HOME button ── */}
+                                <div className="nav-item">
+                                    <span className="nav-link" onClick={() => navigate('home')}>Home</span>
+                                </div>
                                 <div className="nav-item">
                                     <span className="nav-link" onClick={() => navigate('climate-change')}>Climate and Weather</span>
                                 </div>
                                 <div className="nav-item">
-                                    <span className="nav-link" onClick={() => isMobile() && toggleSection('whatwedo')}>What We Do <Arr /></span>
-                                    <div className="nav-dropdown" style={mDrop('whatwedo')}>
+                                    <span className="nav-link">What We Do <Arr /></span>
+                                    <div className="nav-dropdown">
                                         <a className="nav-dropdown-item" onClick={() => navigate('methodology')}>Our methodology</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Modelling and visualizing floods</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Modelling and visualizing wildfires</a>
                                     </div>
                                 </div>
                                 <div className="nav-item">
-                                    <span className="nav-link" onClick={() => isMobile() && toggleSection('examples')}>Examples <Arr /></span>
-                                    <div className="nav-dropdown" style={mDrop('examples')}>
+                                    <span className="nav-link">Examples <Arr /></span>
+                                    <div className="nav-dropdown">
                                         <div className="nav-sub-item">
-                                            <a className="nav-dropdown-item" onClick={e => isMobile() ? toggleSub(e, 'don') : navigate('don-river')}>
-                                                Don River flooding (Toronto)
-                                                {isMobile() && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ flexShrink: 0, transform: openSub === 'don' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
-                                            </a>
-                                            <div className="nav-sub-dropdown" style={mSub('don')}>
+                                            <a className="nav-dropdown-item" onClick={() => navigate('don-river')}>Don River flooding (Toronto)</a>
+                                            <div className="nav-sub-dropdown">
                                                 <a className="nav-dropdown-item" onClick={() => navigate('don-river-problem')}>The Problem</a>
                                                 <a className="nav-dropdown-item" onClick={() => navigate('don-river-solution')}>A Proposed Solution</a>
                                                 <a className="nav-dropdown-item" onClick={() => navigate('don-river-viz')}>Visualizations</a>
                                             </div>
                                         </div>
                                         <div className="nav-sub-item">
-                                            <a className="nav-dropdown-item" onClick={e => isMobile() ? toggleSub(e, 'eto') : navigate('etobicoke')}>
-                                                Etobicoke Creek flooding (Mississauga)
-                                                {isMobile() && <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ flexShrink: 0, transform: openSub === 'eto' ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
-                                            </a>
-                                            <div className="nav-sub-dropdown" style={mSub('eto')}>
+                                            <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')}>Etobicoke Creek flooding (Mississauga)</a>
+                                            <div className="nav-sub-dropdown">
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-problem')}>The Problem</a>
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-solution')}>A Proposed Solution</a>
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-viz')}>Visualizations</a>
@@ -1082,8 +1163,8 @@
                                     </div>
                                 </div>
                                 <div className="nav-item">
-                                    <span className="nav-link" onClick={() => isMobile() && toggleSection('whoweare')}>Who We Are <Arr /></span>
-                                    <div className="nav-dropdown" style={mDrop('whoweare')}>
+                                    <span className="nav-link">Who We Are <Arr /></span>
+                                    <div className="nav-dropdown">
                                         <a className="nav-dropdown-item" onClick={() => navigate('team')}>Team</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('partners')}>Partners</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('sponsors')}>Sponsors</a>
@@ -1093,6 +1174,55 @@
                             </div>
                         </div>
                     </div>
+                    {/* Mobile menu: rendered directly under <nav>, outside nav-menu-bar */}
+                    {menuOpen && (
+                        <div className="mobile-menu">
+                            <div className="nav-item">
+                                <span className="nav-link" onClick={() => navigate('home')}>Home</span>
+                            </div>
+                            <div className="nav-item">
+                                <span className="nav-link" onClick={() => navigate('climate-change')}>Climate and Weather</span>
+                            </div>
+                            <div className="nav-item">
+                                <span className="nav-link mob-section" onClick={() => toggleSection('whatwedo')}>What We Do <Arr /></span>
+                                {openSection === 'whatwedo' && (
+                                    <div className="mob-dropdown">
+                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology')}>Our methodology</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Modelling and visualizing floods</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Modelling and visualizing wildfires</a>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="nav-item">
+                                <span className="nav-link mob-section" onClick={() => toggleSection('examples')}>Examples <Arr /></span>
+                                {openSection === 'examples' && (
+                                    <div className="mob-dropdown">
+                                        <a className="nav-dropdown-item" onClick={() => navigate('don-river')}>Don River flooding (Toronto)</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-problem')}>↳ The Problem</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-solution')}>↳ A Proposed Solution</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-viz')}>↳ Visualizations</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')}>Etobicoke Creek flooding (Mississauga)</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-problem')}>↳ The Problem</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-solution')}>↳ A Proposed Solution</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-viz')}>↳ Visualizations</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')}>North Rustico flooding (PEI)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')}>Fort McMurray wildfire (Alberta)</a>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="nav-item">
+                                <span className="nav-link mob-section" onClick={() => toggleSection('whoweare')}>Who We Are <Arr /></span>
+                                {openSection === 'whoweare' && (
+                                    <div className="mob-dropdown">
+                                        <a className="nav-dropdown-item" onClick={() => navigate('team')}>Team</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('partners')}>Partners</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('sponsors')}>Sponsors</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('contact')}>Contact</a>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </nav>
             );
         }
@@ -1102,6 +1232,7 @@
                 <footer className="footer">
                     <div className="footer-content">
                         <nav className="footer-nav">
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = ''; }}>Home</a>
                             <a className="footer-nav-link" onClick={() => { window.location.hash = 'climate-change'; }}>Climate and Weather</a>
                             <a className="footer-nav-link" onClick={() => { window.location.hash = 'methodology'; }}>What We Do</a>
                             <a className="footer-nav-link" onClick={() => { window.location.hash = 'don-river'; }}>Examples</a>
@@ -1121,20 +1252,21 @@
 
         /* ─── LANDING ─── */
         function LandingPage() {
+            const [started, setStarted] = React.useState(false);
             const [playing, setPlaying] = React.useState(false);
             const videoRef = React.useRef(null);
 
-            const handlePlay = () => setPlaying(true);
+            const handlePlay = () => { setPlaying(true); setStarted(true); };
             const handlePause = () => setPlaying(false);
             const handleOverlayClick = () => {
                 if (videoRef.current) {
-                    videoRef.current.play();
+                    videoRef.current.play().catch(() => { });
                 }
             };
 
             return (
                 <>
-                    {/* HERO — full-width video with overlay text */}
+                    {/* HERO — full-width video with overlay */}
                     <div style={{
                         marginTop: '115px',
                         position: 'relative',
@@ -1142,9 +1274,11 @@
                         background: '#060d14',
                         overflow: 'hidden',
                     }}>
-                        {/* Video */}
+                        {/* Video — autoplay muted so browsers permit it */}
                         <video
                             ref={videoRef}
+                            autoPlay
+                            muted
                             controls
                             onPlay={handlePlay}
                             onPause={handlePause}
@@ -1154,72 +1288,74 @@
                             <source src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1772705408/movie2_qypurv.mp4" type="video/mp4" />
                         </video>
 
-                        {/* Dark overlay — visible before play, hidden when playing */}
-                        <div
-                            onClick={handleOverlayClick}
-                            style={{
-                                position: 'absolute',
-                                inset: 0,
-                                background: 'rgba(6,13,20,0.45)',
-                                opacity: playing ? 0 : 1,
-                                transition: 'opacity 0.5s ease',
-                                pointerEvents: playing ? 'none' : 'auto',
-                                cursor: playing ? 'default' : 'pointer',
-                            }}
-                        />
-
-                        {/* Bottom gradient + headline overlay — fades out when playing */}
-                        <div style={{
-                            position: 'absolute',
-                            bottom: 0, left: 0, right: 0,
-                            background: 'linear-gradient(to top, rgba(6,13,20,0.92) 0%, rgba(6,13,20,0.55) 55%, transparent 100%)',
-                            padding: '3rem 3rem 2.5rem',
-                            pointerEvents: 'none',
-                            opacity: playing ? 0 : 1,
-                            transition: 'opacity 0.5s ease',
-                        }}>
-                            <div style={{ maxWidth: '820px' }}>
+                        {/* Dark overlay with big play button — hidden once video starts */}
+                        {!started && (
+                            <div
+                                onClick={handleOverlayClick}
+                                style={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    background: 'rgba(6,13,20,0.52)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    zIndex: 5,
+                                }}
+                            >
+                                {/* Pulsing play button */}
+                                <div
+                                    className="play-btn-pulse"
+                                    style={{
+                                        width: '96px',
+                                        height: '96px',
+                                        borderRadius: '50%',
+                                        background: 'rgba(255,255,255,0.2)',
+                                        backdropFilter: 'blur(12px)',
+                                        border: '2px solid rgba(255,255,255,0.6)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+                                        <polygon points="12,7 29,17 12,27" fill="white" />
+                                    </svg>
+                                </div>
+                                {/* "Click to play" hint */}
                                 <div style={{
-                                    display: 'inline-block',
-                                    fontSize: '0.65rem',
-                                    fontWeight: '700',
-                                    letterSpacing: '0.22em',
+                                    position: 'absolute',
+                                    bottom: '5.5rem',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    color: 'rgba(255,255,255,0.75)',
+                                    fontSize: '0.78rem',
+                                    fontWeight: '500',
+                                    letterSpacing: '0.12em',
                                     textTransform: 'uppercase',
-                                    color: 'var(--accent)',
-                                    marginBottom: '0.75rem',
-                                    borderLeft: '3px solid var(--accent)',
-                                    paddingLeft: '0.75rem',
-                                }}>Climate Research & Visualization</div>
-                                <h2 style={{
-                                    fontFamily: "'DM Sans', sans-serif",
-                                    fontSize: 'clamp(1.6rem, 3.5vw, 2.8rem)',
-                                    fontWeight: '700',
-                                    color: '#ffffff',
-                                    lineHeight: '1.15',
-                                    letterSpacing: '-0.025em',
-                                    margin: 0,
-                                }}>
-                                    Visualizing the future of<br />extreme weather events
-                                </h2>
+                                    whiteSpace: 'nowrap',
+                                }}>Click to play</div>
                             </div>
-                        </div>
+                        )}
+
+
                     </div>
 
-                    {/* INTRO TEXT — clean two-column editorial layout */}
+                    {/* INTRO TEXT — two-column editorial layout */}
                     <div style={{
                         maxWidth: '1040px',
                         margin: '0 auto',
-                        padding: '5rem 2rem 5rem',
+                        padding: '3rem 2rem 3.5rem',
                         display: 'grid',
                         gridTemplateColumns: '1fr 1fr',
-                        gap: '4rem',
+                        gap: '3rem',
                         alignItems: 'start',
                     }}>
                         <div style={{ animation: 'fadeInUp 0.7s ease-out 0.1s both' }}>
                             <div style={{
                                 fontSize: '0.62rem',
                                 fontWeight: '700',
-                                letterSpacing: '0.2em',
+                                letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
                                 color: 'var(--accent)',
                                 marginBottom: '1.25rem',
@@ -1231,9 +1367,9 @@
                                 The Challenge
                             </div>
                             <p style={{
-                                fontSize: '1.08rem',
+                                fontSize: '1rem',
                                 lineHeight: '1.85',
-                                color: 'var(--ink)',
+                                color: 'var(--ink-mid)',
                                 margin: 0,
                                 fontWeight: '400',
                             }}>
@@ -1244,7 +1380,7 @@
                             <div style={{
                                 fontSize: '0.62rem',
                                 fontWeight: '700',
-                                letterSpacing: '0.2em',
+                                letterSpacing: '0.08em',
                                 textTransform: 'uppercase',
                                 color: 'var(--accent)',
                                 marginBottom: '1.25rem',
@@ -1255,10 +1391,10 @@
                                 <span style={{ display: 'inline-block', width: '20px', height: '2px', background: 'var(--accent)' }} />
                                 Our Approach
                             </div>
-                            <p style={{ fontSize: '1rem', lineHeight: '1.85', color: 'var(--ink-mid)', margin: '0 0 1.25rem' }}>
+                            <p style={{ fontSize: '1rem', lineHeight: '1.85', color: 'var(--ink-mid)', fontWeight: '400', margin: '0 0 1.25rem' }}>
                                 Many climate communications are technical and despairing. Instead, we produce scientifically plausible future climate scenarios depicting what affects people most — extreme weather.
                             </p>
-                            <p style={{ fontSize: '1rem', lineHeight: '1.85', color: 'var(--ink-mid)', margin: 0, fontWeight: '500', color: 'var(--primary)' }}>
+                            <p style={{ fontSize: '1rem', lineHeight: '1.85', margin: 0, fontWeight: '600', color: 'var(--primary)' }}>
                                 We create vivid experiences portraying extreme weather — from mathematically re-created past events to envisioned futures showing the consequences of inaction and the benefits of concrete action.
                             </p>
                         </div>
@@ -1274,7 +1410,7 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><div className="content-page-header"><h1>Climate and Weather</h1></div></div>
+                        <div className="content-page-header"><h1>Climate and Weather</h1></div>
                         <div className="c-group">
                             <Block full>
                                 <p>For over two centuries, scientists have been advancing our understanding of the effects of greenhouse gas emissions on the earth's climate. The levels of noxious greenhouse gases — carbon dioxide, methane, and nitrous oxide — continue to increase to dangerous levels; the rate of increase is also increasing. This is unprecedented and dangerous.</p>
@@ -1309,7 +1445,7 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><div className="content-page-header"><h1>Our Methodology</h1></div></div>
+                        <div className="content-page-header"><h1>Our Methodology</h1></div>
                         <div className="c-group">
                             <Block label="Vision">
                                 <p>To build computer simulation models of extreme weather events and then translate them into accessible images and experiences. To help individuals and communities</p>
@@ -1344,7 +1480,7 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><div className="content-page-header"><h1>Modelling and Visualizing Floods</h1></div></div>
+                        <div className="content-page-header"><h1>Modelling and Visualizing Floods</h1></div>
                         <div className="c-group">
                             <Block full>
                                 <p>Our work proceeds as a series of case studies. The locations we study have experienced one or several instances of severe flooding and have gathered reliable data with which to calibrate and validate our models. The situations can be used to illustrate the difference in plausible future flooding based on the degree to which there is inaction (making future floods worse) or constructive actions (making the damage from future floods less severe).</p>
@@ -1785,7 +1921,7 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><div className="content-page-header"><h1>Partners</h1></div></div>
+                        <div className="content-page-header"><h1>Partners</h1></div>
                         <div className="c-group">
                             <Block full>
                                 <ul>
@@ -1807,7 +1943,7 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><div className="content-page-header"><h1>Sponsors</h1></div></div>
+                        <div className="content-page-header"><h1>Sponsors</h1></div>
                         <div className="c-group">
                             <Block full>
                                 <ul>
@@ -1831,7 +1967,7 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><div className="content-page-header"><h1>Contact</h1></div></div>
+                        <div className="content-page-header"><h1>Contact</h1></div>
                         <div className="c-group">
                             <Block full>
                                 <p>If you would like to learn more about our work, please feel free to reach out. We welcome inquiries from researchers, educators, policymakers, and members of the public who are interested in climate change visualization and extreme weather modelling.</p>
