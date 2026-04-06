@@ -50,6 +50,169 @@
             --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        .text-link {
+            color: var(--primary);
+            text-decoration: underline;
+            text-decoration-color: rgba(22, 63, 89, 0.3);
+            text-underline-offset: 3px;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .text-link:hover {
+            color: var(--accent);
+            text-decoration-color: var(--accent);
+        }
+
+        .text-link.ext {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .text-link.ext::after {
+            content: "↗";
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            opacity: 0.55;
+            margin-left: 1px;
+            transform: translateY(-1px);
+        }
+
+        /* Image Carousel */
+        .img-carousel {
+            position: relative;
+            width: 100%;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-md);
+            background: #0a111a;
+            user-select: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carousel-img-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+
+        .carousel-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .carousel-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(10, 17, 26, 0.9) 0%, rgba(10, 17, 26, 0) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.2rem;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .carousel-btn.left {
+            left: 1.2rem;
+        }
+
+        .carousel-btn.right {
+            right: 1.2rem;
+        }
+
+        .carousel-text-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            z-index: 5;
+        }
+
+        .carousel-caption {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .carousel-desc {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 80%;
+        }
+
+        .carousel-counter {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .carousel-btn.left {
+                left: 0.5rem;
+            }
+
+            .carousel-btn.right {
+                right: 0.5rem;
+            }
+
+            .carousel-text-container {
+                position: static;
+                padding: 1.2rem 1rem;
+            }
+
+            .carousel-gradient {
+                display: none;
+            }
+
+            .carousel-desc {
+                max-width: 100%;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -837,12 +1000,10 @@
             transform-origin: center;
         }
 
-        /* ── MOBILE MENU — rendered outside nav-menu-bar, not affected by its display:none ── */
         .mobile-menu {
             display: none;
         }
 
-        /* Silky hamburger → X animation */
         @keyframes menuSlideDown {
             from {
                 opacity: 0;
@@ -1016,6 +1177,32 @@
 
         /* ─── SHARED PRIMITIVES ─── */
 
+        function useInView(options = { threshold: 0.15 }) {
+            const [isInView, setIsInView] = React.useState(false);
+            const ref = React.useRef(null);
+            React.useEffect(() => {
+                const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) {
+                        setIsInView(true);
+                        observer.disconnect();
+                    }
+                }, options);
+                if (ref.current) observer.observe(ref.current);
+                return () => { if (observer) observer.disconnect(); };
+            }, []);
+            return [ref, isInView];
+        }
+
+        function FadeInUp({ children, delay = 0, style = {} }) {
+            const [ref, isInView] = useInView();
+            return (
+                <div ref={ref} style={{ opacity: isInView ? 1 : 0, transform: isInView ? 'translateY(0)' : 'translateY(30px)', transition: `opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) ${delay}s, transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) ${delay}s`, ...style }}>
+                    {children}
+                </div>
+            );
+        }
+
+
         function Block({ label, children, full }) {
             if (full) return (
                 <div className="c-block full"><div className="c-content">{children}</div></div>
@@ -1028,10 +1215,43 @@
             );
         }
 
+        function ExpandableImage({ src, alt, containerStyle, ...props }) {
+            const [expanded, setExpanded] = useState(false);
+            const [zoomed, setZoomed] = useState(false);
+
+            const close = (e) => { e.stopPropagation(); setExpanded(false); setZoomed(false); };
+            const toggleZoom = (e) => { e.stopPropagation(); setZoomed(!zoomed); };
+
+            return (
+                <div style={{ position: 'relative', width: '100%', ...containerStyle }}>
+                    <img src={src} alt={alt} {...props} style={{ ...props.style, cursor: 'pointer' }} onClick={() => setExpanded(true)} />
+                    <button onClick={() => setExpanded(true)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(255,255,255,0.9)', border: '1px solid var(--border)', borderRadius: '4px', padding: '6px 12px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold', boxShadow: '0 2px 6px rgba(0,0,0,0.15)', color: 'var(--ink)', zIndex: 2, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span>⛶</span> Expand
+                    </button>
+                    {expanded && ReactDOM.createPortal(
+                        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(17, 30, 38, 0.85)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', zIndex: 99999, overflow: zoomed ? 'auto' : 'hidden', display: zoomed ? 'block' : 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={close}>
+                            <div style={{ width: zoomed ? 'max-content' : '100%', height: zoomed ? 'max-content' : '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: zoomed ? '0' : 'auto', padding: zoomed ? '50px' : '0' }}>
+                                <img src={src} alt={alt} style={{ maxWidth: zoomed ? 'none' : '90%', maxHeight: zoomed ? 'none' : '90%', objectFit: 'contain', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', borderRadius: '8px', cursor: zoomed ? 'zoom-out' : 'zoom-in', transition: 'all 0.3s ease' }} onClick={toggleZoom} />
+                            </div>
+
+                            <button onClick={close} style={{ position: 'fixed', top: '2rem', right: '2rem', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: '48px', height: '48px', cursor: 'pointer', fontSize: '1.5rem', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s', backdropFilter: 'blur(4px)', zIndex: 100000 }} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}>✕</button>
+
+                            {!zoomed && (
+                                <button onClick={toggleZoom} style={{ position: 'fixed', bottom: '3rem', left: '50%', transform: 'translateX(-50%)', background: 'var(--accent)', color: 'white', padding: '0.9rem 1.8rem', borderRadius: '50px', border: 'none', fontWeight: '600', fontSize: '0.95rem', boxShadow: '0 8px 25px rgba(181, 74, 22, 0.4)', transition: 'transform 0.2s', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '0.02em', zIndex: 100000, cursor: 'pointer' }} onMouseOver={e => e.currentTarget.style.transform = 'translateX(-50%) translateY(-3px)'} onMouseOut={e => e.currentTarget.style.transform = 'translateX(-50%) translateY(0)'}>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg> Zoom Image
+                                </button>
+                            )}
+                        </div>,
+                        document.body
+                    )}
+                </div>
+            );
+        }
+
         const ImgCard = ({ src, alt, caption }) => (
             <figure style={{ margin: 0, overflow: 'hidden', boxShadow: '0 4px 18px rgba(44,95,122,0.13)', background: 'white' }}>
                 {src
-                    ? <img src={src} alt={alt} style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
+                    ? <ExpandableImage src={src} alt={alt} style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
                     : <div style={{ width: '100%', height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-light)', fontStyle: 'italic', background: 'var(--bg-light)', border: '2px dashed var(--border)' }}>[{alt}]</div>
                 }
                 <figcaption style={{ padding: '0.65rem 1rem', fontSize: '0.82rem', color: 'var(--text-medium)', fontStyle: 'italic', borderTop: '1px solid rgba(44,95,122,0.08)', background: 'white' }}>{caption}</figcaption>
@@ -1042,22 +1262,21 @@
             const [idx, setIdx] = useState(0);
             const prev = () => setIdx(i => i === 0 ? images.length - 1 : i - 1);
             const next = () => setIdx(i => (i + 1) % images.length);
-            const bs = side => ({ position: 'absolute', top: '50%', [side]: '1.2rem', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.3)', width: '44px', height: '44px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, fontSize: '1.2rem', color: 'white', transition: 'all 0.2s' });
             return (
-                <div style={{ position: 'relative', width: '100%', margin: '2rem 0', overflow: 'hidden', boxShadow: 'var(--shadow-md)', background: '#0a111a', userSelect: 'none' }}>
-                    <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <img key={idx} src={images[idx].src} alt={images[idx].caption} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', animation: 'fadeIn 0.5s ease-in-out' }} />
-                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '60%', background: 'linear-gradient(to top,rgba(10,17,26,0.9) 0%,rgba(10,17,26,0) 100%)', pointerEvents: 'none' }} />
+                <div className="img-carousel">
+                    <div className="carousel-img-container">
+                        <img key={idx} src={images[idx].src} alt={images[idx].caption} className="carousel-img" />
+                        <div className="carousel-gradient" />
+                        <button className="carousel-btn left" onClick={prev}>❮</button>
+                        <button className="carousel-btn right" onClick={next}>❯</button>
                     </div>
-                    <button style={bs('left')} onClick={prev} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.3)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}>❮</button>
-                    <button style={bs('right')} onClick={next} onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.3)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}>❯</button>
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem 2rem', zIndex: 5 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1rem' }}>
+                    <div className="carousel-text-container">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
                             <div style={{ flex: 1 }}>
-                                <div style={{ color: 'white', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.4rem', fontFamily: "'DM Sans',sans-serif" }}>{images[idx].caption}</div>
-                                {images[idx].desc && <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.9rem', lineHeight: '1.5', maxWidth: '80%' }}>{images[idx].desc}</div>}
+                                <div className="carousel-caption">{images[idx].caption}</div>
+                                {images[idx].desc && <div className="carousel-desc">{images[idx].desc}</div>}
                             </div>
-                            <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '2px' }}>{idx + 1} / {images.length}</div>
+                            <div className="carousel-counter">{idx + 1} / {images.length}</div>
                         </div>
                     </div>
                 </div>
@@ -1104,9 +1323,6 @@
             }, []);
             const navigate = p => { window.location.hash = p === 'home' ? '' : `#${p}`; setMenuOpen(false); setOpenSection(null); setOpenSub(null); };
             const toggleSection = k => { setOpenSection(prev => prev === k ? null : k); setOpenSub(null); };
-            const toggleSub = (e, k) => { e.stopPropagation(); setOpenSub(prev => prev === k ? null : k); };
-            const mDrop = k => isMobile() ? { display: openSection === k ? 'block' : 'none' } : {};
-            const mSub = k => isMobile() ? { display: openSub === k ? 'block' : 'none' } : {};
             const Arr = () => (<svg className="nav-link-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>);
             const Burger = () => (<button className="nav-hamburger" onClick={() => { setMenuOpen(o => !o); setOpenSection(null); setOpenSub(null); }} aria-label="menu"><span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px,5px)' : 'none' }} /><span style={{ opacity: menuOpen ? 0 : 1 }} /><span style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : 'none' }} /></button>);
             return (
@@ -1120,11 +1336,9 @@
                             <Burger />
                         </div>
                     </div>
-                    {/* Desktop: nav-menu-bar shown; Mobile: hidden via CSS */}
                     <div className="nav-menu-bar">
                         <div className="nav-menu-content">
                             <div className="nav-links desktop-only">
-                                {/* ── HOME button ── */}
                                 <div className="nav-item">
                                     <span className="nav-link" onClick={() => navigate('home')}>Home</span>
                                 </div>
@@ -1135,12 +1349,12 @@
                                     <span className="nav-link">What We Do <Arr /></span>
                                     <div className="nav-dropdown">
                                         <a className="nav-dropdown-item" onClick={() => navigate('methodology')}>Our methodology</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Modelling and visualizing floods</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Modelling and visualizing wildfires</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Flood Modelling</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Wildfire Modelling</a>
                                     </div>
                                 </div>
                                 <div className="nav-item">
-                                    <span className="nav-link">Examples <Arr /></span>
+                                    <span className="nav-link">Our Work <Arr /></span>
                                     <div className="nav-dropdown">
                                         <div className="nav-sub-item">
                                             <a className="nav-dropdown-item" onClick={() => navigate('don-river')}>Don River flooding (Toronto)</a>
@@ -1169,12 +1383,12 @@
                                         <a className="nav-dropdown-item" onClick={() => navigate('partners')}>Partners</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('sponsors')}>Sponsors</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('contact')}>Contact</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('events')}>Events</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {/* Mobile menu: rendered directly under <nav>, outside nav-menu-bar */}
                     {menuOpen && (
                         <div className="mobile-menu">
                             <div className="nav-item">
@@ -1188,13 +1402,13 @@
                                 {openSection === 'whatwedo' && (
                                     <div className="mob-dropdown">
                                         <a className="nav-dropdown-item" onClick={() => navigate('methodology')}>Our methodology</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Modelling and visualizing floods</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Modelling and visualizing wildfires</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Flood Modelling</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Wildfire Modelling</a>
                                     </div>
                                 )}
                             </div>
                             <div className="nav-item">
-                                <span className="nav-link mob-section" onClick={() => toggleSection('examples')}>Examples <Arr /></span>
+                                <span className="nav-link mob-section" onClick={() => toggleSection('examples')}>Our Work <Arr /></span>
                                 {openSection === 'examples' && (
                                     <div className="mob-dropdown">
                                         <a className="nav-dropdown-item" onClick={() => navigate('don-river')}>Don River flooding (Toronto)</a>
@@ -1218,6 +1432,7 @@
                                         <a className="nav-dropdown-item" onClick={() => navigate('partners')}>Partners</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('sponsors')}>Sponsors</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('contact')}>Contact</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('events')}>Events</a>
                                     </div>
                                 )}
                             </div>
@@ -1235,15 +1450,23 @@
                             <a className="footer-nav-link" onClick={() => { window.location.hash = ''; }}>Home</a>
                             <a className="footer-nav-link" onClick={() => { window.location.hash = 'climate-change'; }}>Climate and Weather</a>
                             <a className="footer-nav-link" onClick={() => { window.location.hash = 'methodology'; }}>What We Do</a>
-                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'don-river'; }}>Examples</a>
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'don-river'; }}>Our Work</a>
                             <a className="footer-nav-link" onClick={() => { window.location.hash = 'team'; }}>Who We Are</a>
                         </nav>
                         <p className="footer-copyright">© 2025 envisioningclimatefutures.org. All rights reserved.</p>
                         <div className="footer-logos">
-                            <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_uoft_v4pjy1.png" alt="University of Toronto" />
-                            <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_ocad_jaagm6.png" alt="OCAD University" />
-                            <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_upei_tqeg0d.png" alt="University of Prince Edward Island" />
-                            <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801426/logo_viu_thozre.png" alt="Vancouver Island University" />
+                            <a href="https://www.utoronto.ca/" target="_blank" rel="noopener noreferrer">
+                                <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_uoft_v4pjy1.png" alt="University of Toronto" />
+                            </a>
+                            <a href="https://www.ocadu.ca/" target="_blank" rel="noopener noreferrer">
+                                <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_ocad_jaagm6.png" alt="OCAD University" />
+                            </a>
+                            <a href="https://www.upei.ca/" target="_blank" rel="noopener noreferrer">
+                                <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_upei_tqeg0d.png" alt="University of Prince Edward Island" />
+                            </a>
+                            <a href="https://www.viu.ca/" target="_blank" rel="noopener noreferrer">
+                                <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801426/logo_viu_thozre.png" alt="Vancouver Island University" />
+                            </a>
                         </div>
                     </div>
                 </footer>
@@ -1254,7 +1477,6 @@
         function LandingPage() {
             const [started, setStarted] = React.useState(false);
             const [playing, setPlaying] = React.useState(false);
-            const [inPageFull, setInPageFull] = React.useState(false);
             const videoRef = React.useRef(null);
 
             const handlePlay = () => { setPlaying(true); setStarted(true); };
@@ -1262,126 +1484,102 @@
             const handleOverlayClick = () => {
                 if (videoRef.current) videoRef.current.play().catch(() => { });
             };
-            const toggleFull = () => {
-                setInPageFull(f => !f);
-                if (videoRef.current && videoRef.current.paused) videoRef.current.play().catch(() => { });
+            const togglePlayPause = () => {
+                if (videoRef.current) {
+                    if (videoRef.current.paused) videoRef.current.play().catch(() => { });
+                    else videoRef.current.pause();
+                }
             };
-            React.useEffect(() => {
-                const onKey = e => { if (e.key === 'Escape') setInPageFull(false); };
-                window.addEventListener('keydown', onKey);
-                return () => window.removeEventListener('keydown', onKey);
-            }, []);
 
             return (
                 <>
-                    {/* IN-PAGE FULLSCREEN OVERLAY */}
-                    {inPageFull && (
-                        <div style={{ position: 'fixed', inset: 0, zIndex: 9000, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <video
-                                src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1772705408/movie2_qypurv.mp4"
-                                autoPlay controls controlsList="nofullscreen" disablePictureInPicture
-                                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                                onEnded={() => setInPageFull(false)}
-                            />
-                            <button onClick={() => setInPageFull(false)} title="Exit (Esc)"
-                                style={{ position: 'absolute', top: '1.2rem', right: '1.5rem', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: '50%', width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white', fontSize: '1.1rem', zIndex: 9001 }}>✕</button>
+                    <div style={{ maxWidth: '1400px', margin: '0 auto 4rem', paddingTop: '160px', paddingLeft: '2.5rem', paddingRight: '2.5rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '3.5rem' }}>
+                        <div style={{ flex: '1 1 420px', animation: 'fadeInUp 0.8s ease-out both' }}>
+                            <h1 style={{ fontSize: '3.8rem', fontWeight: '700', color: 'var(--primary)', lineHeight: '1.1', marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
+                                Seeing the Future of Our Climate.
+                            </h1>
+                            <button onClick={() => { window.location.hash = 'don-river'; }} style={{ padding: '0.9rem 2.2rem', fontSize: '1.05rem', fontWeight: '600', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', boxShadow: '0 8px 20px rgba(22, 63, 89, 0.25)', transition: 'transform 0.2s', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }} onMouseOver={e => e.currentTarget.style.transform = 'translateY(-3px)'} onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                                See Our Work <span style={{ fontSize: '1.2rem' }}>→</span>
+                            </button>
                         </div>
-                    )}
 
-                    {/* HERO — full-width video with overlay */}
-                    <div style={{ marginTop: '115px', position: 'relative', width: '100%', background: '#060d14', overflow: 'hidden' }}>
-                        {/* Video — autoplay muted, native fullscreen disabled */}
-                        <video
-                            ref={videoRef}
-                            autoPlay muted controls
-                            controlsList="nofullscreen"
-                            disablePictureInPicture
-                            onPlay={handlePlay}
-                            onPause={handlePause}
-                            onEnded={handlePause}
-                            style={{ width: '100%', display: 'block', maxHeight: '82vh', objectFit: 'contain', background: '#000' }}
-                        >
-                            <source src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1772705408/movie2_qypurv.mp4" type="video/mp4" />
-                        </video>
+                        <div style={{ flex: '1 1 500px', position: 'relative', background: '#000', borderRadius: '16px', overflow: 'hidden', boxShadow: 'var(--shadow-lg)', animation: 'fadeInUp 0.8s ease-out 0.2s both' }}>
+                            <video
+                                ref={videoRef}
+                                autoPlay muted controls playsInline
+                                disablePictureInPicture
+                                onPlay={handlePlay}
+                                onPause={handlePause}
+                                onEnded={handlePause}
+                                style={{ width: '100%', display: 'block', maxHeight: '65vh', objectFit: 'contain', cursor: 'pointer' }}
+                            >
+                                <source src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1772705408/movie2_qypurv.mp4" type="video/mp4" />
+                            </video>
 
-                        {/* Custom in-page fullscreen button */}
-                        <button onClick={toggleFull} title="Fullscreen"
-                            style={{ position: 'absolute', bottom: '3.2rem', right: '1rem', background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.25)', borderRadius: '6px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10 }}>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M1 6V1h5M10 1h5v5M15 10v5h-5M6 15H1v-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-
-                        {/* Dark overlay with play button — hidden once started */}
-                        {!started && (
-                            <div onClick={handleOverlayClick}
-                                style={{ position: 'absolute', inset: 0, background: 'rgba(6,13,20,0.52)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 5 }}>
-                                <div className="play-btn-pulse"
-                                    style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><polygon points="12,7 29,17 12,27" fill="white" /></svg>
+                            {started && (
+                                <div onClick={togglePlayPause}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0, left: 0, right: 0, bottom: '60px',
+                                        zIndex: 4,
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        background: !playing ? 'rgba(0,0,0,0.45)' : 'transparent',
+                                        transition: 'background 0.2s'
+                                    }}>
+                                    {!playing && (
+                                        <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(255,255,255,0.25)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}>
+                                            <svg width="28" height="28" viewBox="0 0 34 34" fill="none"><polygon points="12,7 29,17 12,27" fill="white" /></svg>
+                                        </div>
+                                    )}
                                 </div>
-                                <div style={{ position: 'absolute', bottom: '5.5rem', left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.75)', fontSize: '0.78rem', fontWeight: '500', letterSpacing: '0.12em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Click to play</div>
-                            </div>
-                        )}
+                            )}
+
+                            {!started && (
+                                <div onClick={handleOverlayClick}
+                                    style={{ position: 'absolute', inset: 0, background: 'rgba(6,13,20,0.52)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 5 }}>
+                                    <div className="play-btn-pulse"
+                                        style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(12px)', border: '2px solid rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><polygon points="12,7 29,17 12,27" fill="white" /></svg>
+                                    </div>
+                                    <div style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.85)', fontSize: '0.85rem', fontWeight: '500', letterSpacing: '0.12em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Click to play</div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    {/* INTRO TEXT — two-column editorial layout */}
                     <div style={{
-                        maxWidth: '1040px',
+                        maxWidth: '1100px',
                         margin: '0 auto',
-                        padding: '3rem 2rem 3.5rem',
+                        padding: '4rem 2.5rem',
                         display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
-                        gap: '3rem',
+                        gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
+                        gap: '4rem',
                         alignItems: 'start',
                     }}>
-                        <div style={{ animation: 'fadeInUp 0.7s ease-out 0.1s both' }}>
-                            <div style={{
-                                fontSize: '0.62rem',
-                                fontWeight: '700',
-                                letterSpacing: '0.08em',
-                                textTransform: 'uppercase',
-                                color: 'var(--accent)',
-                                marginBottom: '1.25rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                            }}>
-                                <span style={{ display: 'inline-block', width: '20px', height: '2px', background: 'var(--accent)' }} />
+                        <FadeInUp delay={0}>
+                            <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
+                                <span style={{ display: 'inline-block', width: '20px', height: '3px', background: 'var(--accent)', borderRadius: '2px' }} />
                                 The Challenge
-                            </div>
-                            <p style={{
-                                fontSize: '1rem',
-                                lineHeight: '1.85',
-                                color: 'var(--ink-mid)',
-                                margin: 0,
-                                fontWeight: '400',
-                            }}>
+                            </h2>
+                            <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: 'var(--ink-mid)', margin: 0, fontWeight: '400' }}>
                                 People have long been warned about environmental harm from greenhouse gases. We see devastation from floods, fires, and heat, yet citizens and governments have not acted sufficiently to slow climate change. Global surface temperatures and extreme weather events still increase dangerously.
                             </p>
-                        </div>
-                        <div style={{ animation: 'fadeInUp 0.7s ease-out 0.25s both' }}>
-                            <div style={{
-                                fontSize: '0.62rem',
-                                fontWeight: '700',
-                                letterSpacing: '0.08em',
-                                textTransform: 'uppercase',
-                                color: 'var(--accent)',
-                                marginBottom: '1.25rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                            }}>
-                                <span style={{ display: 'inline-block', width: '20px', height: '2px', background: 'var(--accent)' }} />
+                        </FadeInUp>
+                        <FadeInUp delay={0.15}>
+                            <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
+                                <span style={{ display: 'inline-block', width: '20px', height: '3px', background: 'var(--accent)', borderRadius: '2px' }} />
                                 Our Approach
-                            </div>
-                            <p style={{ fontSize: '1rem', lineHeight: '1.85', color: 'var(--ink-mid)', fontWeight: '400', margin: '0 0 1.25rem' }}>
+                            </h2>
+                            <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: 'var(--ink-mid)', fontWeight: '400', margin: '0 0 1.25rem' }}>
                                 Many climate communications are technical and despairing. Instead, we produce scientifically plausible future climate scenarios depicting what affects people most — extreme weather.
                             </p>
-                            <p style={{ fontSize: '1rem', lineHeight: '1.85', margin: 0, fontWeight: '600', color: 'var(--primary)' }}>
+                            <p style={{ fontSize: '1.1rem', lineHeight: '1.85', margin: 0, fontWeight: '600', color: 'var(--primary)' }}>
                                 We create vivid experiences portraying extreme weather — from mathematically re-created past events to envisioned futures showing the consequences of inaction and the benefits of concrete action.
                             </p>
-                        </div>
+                        </FadeInUp>
                     </div>
 
                     <Footer />
@@ -1397,9 +1595,16 @@
                         <div className="content-page-header"><h1>Climate and Weather</h1></div>
                         <div className="c-group">
                             <Block full>
-                                <p>For over two centuries, scientists have been advancing our understanding of the effects of greenhouse gas emissions on the earth's climate. The levels of noxious greenhouse gases — carbon dioxide, methane, and nitrous oxide — continue to increase to dangerous levels; the rate of increase is also increasing. This is unprecedented and dangerous.</p>
-                                <p>The most important reason for this is the continued burning of fossil fuels. Despite advances in renewable energy such as solar and wind technologies, fossil fuel use worldwide is still increasing. Forests and oceans have long countered the rise in atmospheric carbon dioxide by absorbing it. But the forests are disappearing due to human destruction and wildfires. The oceans are becoming acidified.</p>
-                                <p>The result is planetary global warming, which is happening at a dangerous rate. There are many consequences to this. One dramatic result is that ice caps and glaciers at the poles are shrinking. Large chunks could soon be falling off, causing meters of sea level rise across the planet. Global warming also causes extreme weather events such as hurricanes, typhoons, floods, heat waves, droughts, and wildfires. The number and intensity of such extreme weather events increase steadily, causing more death, destruction, homelessness, migration, and stress.</p>
+                                <p>For over two centuries, scientists have been advancing our understanding of the effects of greenhouse gas emissions on the earth's climate.</p>
+                                <div style={{ background: 'rgba(181,74,22,0.06)', borderLeft: '3px solid var(--accent)', padding: '1rem 1.25rem', margin: '1.5rem 0', borderRadius: '0 8px 8px 0' }}>
+                                    <p style={{ margin: 0, color: 'var(--ink)' }}><strong>The levels of noxious greenhouse gases</strong> — carbon dioxide, methane, and nitrous oxide — <strong>continue to increase to dangerous levels; the rate of increase is also increasing. This is unprecedented and dangerous.</strong></p>
+                                </div>
+                                <p><strong>The most important reason for this is the continued burning of fossil fuels.</strong> Despite advances in renewable energy such as solar and wind technologies, fossil fuel use worldwide is still increasing.</p>
+                                <p>Forests and oceans have long countered the rise in atmospheric carbon dioxide by absorbing it. But the forests are disappearing due to human destruction and wildfires. The oceans are becoming acidified.</p>
+                                <p>The result is planetary global warming, which is happening at a dangerous rate. There are many consequences to this. One dramatic result is that ice caps and glaciers at the poles are shrinking. Large chunks could soon be falling off, causing meters of sea level rise across the planet.</p>
+                                <div style={{ background: 'var(--white)', border: '1px solid rgba(181,74,22,0.15)', padding: '1.25rem 1.5rem', borderRadius: '12px', margin: '1.5rem 0', boxShadow: '0 4px 18px rgba(181,74,22,0.05)' }}>
+                                    <p style={{ margin: 0, color: 'var(--ink-mid)' }}><strong>Global warming also causes extreme weather events such as hurricanes, typhoons, floods, heat waves, droughts, and wildfires.</strong> The number and intensity of such extreme weather events increase steadily, causing more death, destruction, homelessness, migration, and stress.</p>
+                                </div>
                                 <div style={{ margin: '2rem 0' }}>
                                     <ImgCard
                                         src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773722783/Impact_of_climate_change_on_extfreme_weather_Screenshot_sdci7q.png"
@@ -1408,21 +1613,18 @@
                                     />
                                 </div>
                                 <p>
-                                    <a href="https://www.carbonbrief.org/" target="_blank" rel="noopener noreferrer">carbonbrief.org</a>
+                                    <a className="text-link ext" href="https://www.carbonbrief.org/" target="_blank" rel="noopener noreferrer">carbonbrief.org</a>
                                     <span style={{ margin: '0 0.75rem', color: 'var(--text-light)' }}>·</span>
-                                    <a href="https://www.worldweatherattribution.org/" target="_blank" rel="noopener noreferrer">worldweatherattribution.org</a>
+                                    <a className="text-link ext" href="https://www.worldweatherattribution.org/" target="_blank" rel="noopener noreferrer">worldweatherattribution.org</a>
                                 </p>
                                 <p style={{ marginTop: '1rem' }}>Our research and this website document cases and methods for mobilizing individual and community action by demonstrating that inaction in the face of climate change will lead to more destruction from extreme weather, whereas there are doable actions by both individuals and communities that will make us safer.</p>
                             </Block>
                         </div>
-
                     </div>
                     <Footer />
                 </>
             );
         }
-
-
 
         /* ─── METHODOLOGY ─── */
         function MethodologyPage() {
@@ -1441,8 +1643,13 @@
                                 <p>To produce constructive change in the behaviour of individuals and more thoughtful and open policy deliberations by government.</p>
                             </Block>
                             <Block label="Approach">
-                                <p>Well-designed images help people engage thoughtfully with critical issues. We therefore visualize extreme weather events — situations where climate change affects people most directly. Depictions of floods and fires show what neighborhoods have experienced, how damage could become worse, and how risks would be reduced if we act soon. What is novel is how we create experiences that portray the difference between action and inaction and use these to motivate and enable constructive change.</p>
-                                <p>Our work integrates flood and fire modelling, data visualization, design, planning, and environmental psychology. We develop novel visualizations and immersive environments. Unlike other work, and to maximize impact, images are designed for lay audiences, portray local phenomena, are based on real data and validated models; are static and dynamic; and portray optimistic and pessimistic scenarios.</p>
+                                <p><strong>Well-designed images help people engage thoughtfully with critical issues.</strong> We therefore visualize extreme weather events — situations where climate change affects people most directly.</p>
+                                <p>Depictions of floods and fires show what neighborhoods have experienced, how damage could become worse, and how risks would be reduced if we act soon.</p>
+                                <div style={{ background: 'rgba(181,74,22,0.05)', borderLeft: '4px solid var(--accent)', padding: '1rem 1.25rem', margin: '1.5rem 0', borderRadius: '0 8px 8px 0' }}>
+                                    <p style={{ margin: 0, fontWeight: '500', color: 'var(--primary)' }}><strong>What is novel is how we create experiences that portray the difference between action and inaction</strong> and use these to motivate and enable constructive change.</p>
+                                </div>
+                                <p>Our work integrates flood and fire modelling, data visualization, design, planning, and environmental psychology. We develop novel visualizations and immersive environments.</p>
+                                <p>Unlike other work, and to maximize impact, images are designed for lay audiences, portray local phenomena, are based on real data and validated models; are static and dynamic; and portray optimistic and pessimistic scenarios.</p>
                             </Block>
                             <Block label="Goals">
                                 <ul>
@@ -1464,24 +1671,30 @@
             return (
                 <>
                     <div className="content-page">
-                        <div className="content-page-header"><h1>Modelling and Visualizing Floods</h1></div>
+                        <div className="content-page-header"><h1>Flood Modelling</h1></div>
                         <div className="c-group">
                             <Block full>
-                                <p>Our work proceeds as a series of case studies. The locations we study have experienced one or several instances of severe flooding and have gathered reliable data with which to calibrate and validate our models. The situations can be used to illustrate the difference in plausible future flooding based on the degree to which there is inaction (making future floods worse) or constructive actions (making the damage from future floods less severe).</p>
-                                <p>This website reports on our first case studies, <a href="#don-river">flooding at the mouth of the Don River (Toronto)</a>, and <a href="#etobicoke">flooding of the Little Etobicoke Creek (Mississauga)</a>.</p>
+                                <p>Our work proceeds as a series of case studies. The locations we study have experienced one or several instances of severe flooding and have gathered reliable data with which to calibrate and validate our models.</p>
+                                <div style={{ background: 'var(--white)', border: '1px solid var(--border)', padding: '1.25rem 1.5rem', borderRadius: '12px', margin: '1.5rem 0', boxShadow: '0 4px 18px rgba(44,95,122,0.04)' }}>
+                                    <p style={{ margin: 0, color: 'var(--ink-mid)' }}>The situations can be used to illustrate the difference in plausible future flooding based on the degree to which there is <strong><span style={{ color: 'var(--accent)' }}>inaction</span> (making future floods worse)</strong> or <strong><span style={{ color: 'var(--primary)' }}>constructive actions</span> (making the damage from future floods less severe)</strong>.</p>
+                                </div>
+                                <p>This website reports on our first case studies, <a className="text-link" href="#don-river">flooding at the mouth of the Don River (Toronto)</a>, and <a className="text-link" href="#etobicoke">flooding of the Little Etobicoke Creek (Mississauga)</a>.</p>
                             </Block>
                             <Block label="Modelling Systems">
-                                <p>Past flooding is reproduced mathematically by modelling the flood in one of a set of computer systems for doing this. Thus far, we have used in our work both <a href="https://www.esri.com/content/dam/esrisites/en-us/media/technical-papers/flood-simulation-arcgis-pro.pdf" target="_blank" rel="noopener noreferrer">ESRI ArcGIS</a> and the <a href="https://www.civilgeo.com/the-road-to-hec-ras/" target="_blank" rel="noopener noreferrer">U.S. Army's HEC-RAS</a>.</p>
+                                <p>Past flooding is reproduced mathematically by modelling the flood in one of a set of computer systems for doing this. Thus far, we have used in our work both <a className="text-link ext" href="https://www.esri.com/content/dam/esrisites/en-us/media/technical-papers/flood-simulation-arcgis-pro.pdf" target="_blank" rel="noopener noreferrer">ESRI ArcGIS</a> and the <a className="text-link ext" href="https://www.civilgeo.com/the-road-to-hec-ras/" target="_blank" rel="noopener noreferrer">U.S. Army's HEC-RAS</a>.</p>
                             </Block>
                             <Block label="Model Inputs">
                                 <p>Data used as input to a flood model includes:</p>
-                                <ul>
-                                    <li>Topography;</li>
-                                    <li>Land surface characteristics such as rivers and streams, dams and culverts;</li>
-                                    <li>Underground streams and drainage systems; and</li>
-                                    <li>Absorptive properties of structures on the ground such as building rooftops and parking lots.</li>
-                                </ul>
-                                <p>Models are driven by data on the water that comes from sources such as rainfall, tides, rising sea levels, and ocean surges. Models output descriptions of water flowing with varying velocities over landscapes over periods of time. If strong enough, these water flows are floods.</p>
+                                <div style={{ background: '#f5f8fa', borderRadius: '10px', padding: '1rem 1.5rem', marginBottom: '1.5rem' }}>
+                                    <ul style={{ margin: 0 }}>
+                                        <li>Topography;</li>
+                                        <li>Land surface characteristics such as rivers and streams, dams and culverts;</li>
+                                        <li>Underground streams and drainage systems; and</li>
+                                        <li>Absorptive properties of structures on the ground such as building rooftops and parking lots.</li>
+                                    </ul>
+                                </div>
+                                <p>Models are driven by data on the water that comes from sources such as rainfall, tides, rising sea levels, and ocean surges. Models output descriptions of water flowing with varying velocities over landscapes over periods of time.</p>
+                                <p><strong>If strong enough, these water flows are floods.</strong></p>
                             </Block>
                             <Block label="Future Projections">
                                 <p>Once we can reproduce past flooding, we can use the model to imagine, project, and visualize future climate scenarios.</p>
@@ -1554,7 +1767,7 @@
                                 ]} />
                             </Block>
                             <Block label="Improvement Plan">
-                                <p>In 1886, the city of Toronto initiated the <a href="https://jenniferbonnell.com/books-publications/reclaiming-the-don/" target="_blank" rel="noopener noreferrer">"Don River Improvement Plan"</a>. Concerns that led to this Plan were threefold: public health dangers from urban wastes including sewage in the river, damage from floods, and impediments to Lake Ontario shipping from silt build-up erroneously attributed to the river. The plan was to widen, deepen, and straighten the river channel in the last 2 kilometers before it reached the lake. Additional benefits from the plan were intended to be allowing ships to come up the river and railroad tracks on both banks of the river.</p>
+                                <p>In 1886, the city of Toronto initiated the <a className="text-link ext" href="https://jenniferbonnell.com/books-publications/reclaiming-the-don/" target="_blank" rel="noopener noreferrer">"Don River Improvement Plan"</a>. Concerns that led to this Plan were threefold: public health dangers from urban wastes including sewage in the river, damage from floods, and impediments to Lake Ontario shipping from silt build-up erroneously attributed to the river. The plan was to widen, deepen, and straighten the river channel in the last 2 kilometers before it reached the lake. Additional benefits from the plan were intended to be allowing ships to come up the river and railroad tracks on both banks of the river.</p>
                             </Block>
                             <Block label="Keating Channel">
                                 <p>The project suffered from cost overruns, technical missteps, political controversies, and a gradual weakening of its specifications. Most of its goals were not achieved. The final mistake was to build the Keating Channel, which forced the river to make a 90-degree turn as it approached the lake.</p>
@@ -1580,7 +1793,7 @@
                         <SubNav items={donItems} active="don-river-solution" />
                         <div className="c-group">
                             <Block label="1989 Meeting">
-                                <p>In 1989, over 500 people attended a public meeting with the city of Toronto and the Toronto and Region Conservation Authority (TRCA) to discuss ways to clean up the Don watershed (<a href="https://www.waterfrontoronto.ca/news/bringing-back-don-30-years-citizen-advocacy" target="_blank" rel="noopener noreferrer">Waterfront Toronto</a>). The TRCA was an organization set up by the province and then given enhanced powers after 81 people died during the 1954 flooding of the Humber River caused by Hurricane Hazel.</p>
+                                <p>In 1989, over 500 people attended a public meeting with the city of Toronto and the Toronto and Region Conservation Authority (TRCA) to discuss ways to clean up the Don watershed (<a className="text-link ext" href="https://www.waterfrontoronto.ca/news/bringing-back-don-30-years-citizen-advocacy" target="_blank" rel="noopener noreferrer">Waterfront Toronto</a>). The TRCA was an organization set up by the province and then given enhanced powers after 81 people died during the 1954 flooding of the Humber River caused by Hurricane Hazel.</p>
                             </Block>
                             <Block label="2007 Competition">
                                 <p>After years of discussion and planning, Waterfront Toronto announced in February 2007 an international design competition to finally solve the problem of flooding at the mouth of the Don:</p>
@@ -1595,11 +1808,11 @@
                                 </div>
                                 <div style={{ background: 'rgba(44,95,122,0.04)', border: '1px solid rgba(44,95,122,0.12)', padding: '1.1rem 1.4rem', fontSize: '0.88rem', color: 'var(--text-medium)', lineHeight: '1.8' }}>
                                     <span style={{ fontWeight: '600', color: 'var(--primary)', marginRight: '0.5rem' }}>References:</span>
-                                    <a href="https://www.waterfrontoronto.ca/our-projects/don-mouth-naturalization-and-port-lands-flood-protection" target="_blank" rel="noopener noreferrer">Don Mouth Naturalization and Port Lands Flood Protection</a>
+                                    <a className="text-link ext" href="https://www.waterfrontoronto.ca/our-projects/don-mouth-naturalization-and-port-lands-flood-protection" target="_blank" rel="noopener noreferrer">Don Mouth Naturalization and Port Lands Flood Protection</a>
                                     <span style={{ margin: '0 0.5rem', color: 'var(--text-light)' }}>·</span>
-                                    <a href="https://housing-infrastructure.canada.ca/alt-format/pdf/eval/2021-2-eval-twri-plfp-pt-eng.pdf" target="_blank" rel="noopener noreferrer">Federal evaluation report</a>
+                                    <a className="text-link ext" href="https://housing-infrastructure.canada.ca/alt-format/pdf/eval/2021-2-eval-twri-plfp-pt-eng.pdf" target="_blank" rel="noopener noreferrer">Federal evaluation report</a>
                                     <span style={{ margin: '0 0.5rem', color: 'var(--text-light)' }}>·</span>
-                                    <a href="https://www.mvvainc.com/projects/port-lands-flood-protection" target="_blank" rel="noopener noreferrer">MVVA design project</a>
+                                    <a className="text-link ext" href="https://www.mvvainc.com/projects/port-lands-flood-protection" target="_blank" rel="noopener noreferrer">MVVA design project</a>
                                 </div>
                             </Block>
                         </div>
@@ -1622,12 +1835,12 @@
                         <div className="c-group">
                             <Block label="Visualizations">
                                 <p>We have generated portrayals of real floods and plausible scenarios predicted by flood models. The figure portrays 10-, 100-, and 350-year (their "return periods" — measures of intensity) floods before and after the river mouth reconstruction completed in 2025.</p>
-                                <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1772707919/don_river_year_sde6oe.png" alt="Return periods" style={{ width: '100%', marginBottom: '1.5rem', display: 'block' }} />
+                                <ExpandableImage src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1772707919/don_river_year_sde6oe.png" alt="Return periods" style={{ width: '100%', display: 'block' }} containerStyle={{ marginBottom: '1.5rem' }} />
                                 <div>
                                     <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls style={{ width: '100%', marginBottom: '1.5rem', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
                                     <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Before & After reconstruction video</p>
                                 </div>
-                                <p>The Port Lands at the mouth of the river can now withstand major storms. There is still flooding to the east, which is being addressed by a subsequent flood mitigation project now underway (<a href="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2021/09/17175237/BEFP-Final-Class-EA-Report-August-2021_with-exec-summary.pdf" target="_blank" rel="noopener noreferrer">BEFP Final Class EA Report</a>).</p>
+                                <p>The Port Lands at the mouth of the river can now withstand major storms. There is still flooding to the east, which is being addressed by a subsequent flood mitigation project now underway (<a className="text-link ext" href="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2021/09/17175237/BEFP-Final-Class-EA-Report-August-2021_with-exec-summary.pdf" target="_blank" rel="noopener noreferrer">BEFP Final Class EA Report</a>).</p>
                             </Block>
                         </div>
                         <NavRow prev={{ href: 'don-river-solution', label: 'A Proposed Solution' }} next={{ href: 'etobicoke', label: 'Next Case: Etobicoke Creek' }} />
@@ -1653,7 +1866,7 @@
                                 <p>Use the tabs above to explore <strong>The Problem</strong> (the history and causes of flooding), <strong>A Proposed Solution</strong> (the planned improvements to the Dixie-Dundas area), and <strong>Visualizations</strong> (our flood modelling results for 10-year, 100-year, and 350-year storms).</p>
                             </Block>
                             <Block label="Flood Scenarios">
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: '1.25rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                                     <ImgCard src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1772707917/etobicoke_10yr_wz7xaz.png" alt="10yr" caption="10-Year Flood Scenario" />
                                     <ImgCard src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1772707917/etobicoke_350yr_i5mn2a.png" alt="350yr" caption="350-Year Flood Scenario" />
                                 </div>
@@ -1703,33 +1916,16 @@
                                     { src: 'https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632294/oblique_VIEW_of_LEC_FLOOD_copy_okgqeo.png', caption: 'Oblique view of LEC flood', desc: 'Oblique view of LEC flood' }
                                 ]} />
                             </Block>
-                            <Block label="Flood Models & Videos">
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-                                    <div>
-                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632304/350-Year-LEC-Flood-3h_2D_copy_qszoz4.mp4" controls style={{ width: '100%', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
-                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>350-Year LEC Flood 2D</p>
+                            <Block label="News Coverage">
+                                <div style={{ background: 'var(--white)', border: '1px solid var(--border)', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 18px rgba(44,95,122,0.06)' }}>
+                                    <h4 style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--primary)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: "'DM Sans', sans-serif" }}>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg>
+                                        Newspaper Coverage
+                                    </h4>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                        <a className="text-link ext" href="https://thepointer.com/article/2024-07-29/11-years-2-destructive-floods-millions-in-damages-why-hasn-t-mississauga-moved-quicker-to-protect-residents" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px' }}>The Pointer (11 years, 2 destructive floods)</a>
+                                        <a className="text-link ext" href="https://www.mississauga.com/news/council/start-the-project-immediately-mississauga-residents-push-city-to-speed-up-80m-stormwater-plan-after/article_f21a06a6-916f-594a-b2d3-86df8b66bb82.html" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px' }}>Mississauga.com ($80M stormwater plan)</a>
                                     </div>
-                                    <div>
-                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632306/100_Year_LEC_Flyover-3D_copy_mgftbb.mp4" controls style={{ width: '100%', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
-                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>100-Year LEC Flyover 3D</p>
-                                    </div>
-                                </div>
-                                <div style={{ background: 'rgba(44,95,122,0.04)', padding: '1.5rem', border: '1px solid rgba(44,95,122,0.12)', marginTop: '2.5rem', borderRadius: '8px' }}>
-                                    <h3 style={{ fontSize: '1.1rem', color: 'var(--primary)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        📰 Newspaper Articles on the Flooding
-                                    </h3>
-                                    <ul style={{ margin: 0, paddingLeft: '0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                        <li>
-                                            <a href="https://thepointer.com/article/2024-07-29/11-years-2-destructive-floods-millions-in-damages-why-hasn-t-mississauga-moved-quicker-to-protect-residents" target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '1rem', background: 'white', border: '1px solid rgba(44,95,122,0.15)', borderRadius: '6px', color: 'var(--primary)', textDecoration: 'none', fontWeight: '500' }}>
-                                                11 years, 2 destructive floods, millions in damages: Why hasn't Mississauga moved quicker to protect residents? <span style={{ color: 'var(--text-medium)', fontWeight: '400', fontSize: '0.9rem' }}>(The Pointer)</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.mississauga.com/news/council/start-the-project-immediately-mississauga-residents-push-city-to-speed-up-80m-stormwater-plan-after/article_f21a06a6-916f-594a-b2d3-86df8b66bb82.html" target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '1rem', background: 'white', border: '1px solid rgba(44,95,122,0.15)', borderRadius: '6px', color: 'var(--primary)', textDecoration: 'none', fontWeight: '500' }}>
-                                                'Start the project immediately': Mississauga residents push city to speed up $80M stormwater plan <span style={{ color: 'var(--text-medium)', fontWeight: '400', fontSize: '0.9rem' }}>(Mississauga.com)</span>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </Block>
                         </div>
@@ -1756,8 +1952,8 @@
                                 <div style={{ margin: '1.5rem 0' }}><ImgCard src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632297/2024_Dixie_Area_Proposal_FLOOD._MITIGATION_Screenshot_2026-03-09_at_10.19.27_copy_d6uwbg.png" alt="Dixie-Dundas proposal" caption="2024 Dixie-Dundas Area Proposal Flood Mitigation" /></div>
                                 <p>Reports:</p>
                                 <ul>
-                                    <li><a href="https://www.mississauga.ca/wp-content/uploads/2023/05/Dixie-Dundas_PIC-2_FINAL.pdf" target="_blank" rel="noopener noreferrer">Dixie-Dundas Flood Mitigation Feasibility Study</a></li>
-                                    <li><a href="https://www.mississauga.ca/wp-content/uploads/2024/06/19152312/dixie-dundas-flood-mitigation-environmental-assessment-study.pdf" target="_blank" rel="noopener noreferrer">Dixie-Dundas Flood Mitigation Environmental Assessment Study</a></li>
+                                    <li><a className="text-link ext" href="https://www.mississauga.ca/wp-content/uploads/2023/05/Dixie-Dundas_PIC-2_FINAL.pdf" target="_blank" rel="noopener noreferrer">Dixie-Dundas Flood Mitigation Feasibility Study</a></li>
+                                    <li><a className="text-link ext" href="https://www.mississauga.ca/wp-content/uploads/2024/06/19152312/dixie-dundas-flood-mitigation-environmental-assessment-study.pdf" target="_blank" rel="noopener noreferrer">Dixie-Dundas Flood Mitigation Environmental Assessment Study</a></li>
                                 </ul>
                             </Block>
                         </div>
@@ -1781,21 +1977,33 @@
                             <Block label="Visualizations">
                                 <p>We have re-created and visualized the 2013 and 2024 LEC floods, focusing on the area near Queen Frederika Drive, Dixie-Dundas Road, and just south of there.</p>
                                 <p>Below we show how damage varies with the storm intensity (top: 10-year storm; below: 100- and 350-year storms); and how effects could be reduced by what engineers have recommended — the riverbed channel deepening and widening; and replacing a bridge with one that has larger culverts and so is better able to support greater flow to the east. What is interesting is that neither expanding the river channel nor replacing the bridge succeed in mitigating the damage if done by themselves.</p>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', marginTop: '2rem' }}>
                                     <div style={{ background: 'white', border: '1px solid var(--border)', padding: '1.5rem', boxShadow: 'var(--shadow-sm)' }}>
                                         <h3 style={{ fontSize: '1.4rem', color: 'var(--primary)', marginBottom: '0.5rem', textAlign: 'center' }}>10-Year Flood</h3>
                                         <p style={{ color: 'var(--text-medium)', fontSize: '0.9rem', textAlign: 'center', marginBottom: '1rem' }}>Common flood scenario</p>
-                                        <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632897/etobicoke_10yr_z0an1b.png" alt="10yr" style={{ width: '100%', display: 'block' }} />
+                                        <ExpandableImage src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632897/etobicoke_10yr_z0an1b.png" alt="10yr" style={{ width: '100%', display: 'block' }} />
                                     </div>
                                     <div style={{ background: 'white', border: '1px solid var(--border)', padding: '1.5rem', boxShadow: 'var(--shadow-sm)' }}>
                                         <h3 style={{ fontSize: '1.4rem', color: 'var(--primary)', marginBottom: '0.5rem', textAlign: 'center' }}>100-Year Flood</h3>
                                         <p style={{ color: 'var(--text-medium)', fontSize: '0.9rem', textAlign: 'center', marginBottom: '1rem' }}>Major flood scenario</p>
-                                        <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632896/etobicoke_100yr_mnstlq.png" alt="100yr" style={{ width: '100%', display: 'block' }} />
+                                        <ExpandableImage src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632896/etobicoke_100yr_mnstlq.png" alt="100yr" style={{ width: '100%', display: 'block' }} />
                                     </div>
                                     <div style={{ background: 'white', border: '1px solid var(--border)', padding: '1.5rem', boxShadow: 'var(--shadow-sm)' }}>
                                         <h3 style={{ fontSize: '1.4rem', color: 'var(--primary)', marginBottom: '0.5rem', textAlign: 'center' }}>350-Year Flood</h3>
                                         <p style={{ color: 'var(--text-medium)', fontSize: '0.9rem', textAlign: 'center', marginBottom: '1rem' }}>Extreme flood scenario</p>
-                                        <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632896/etobicoke_350yr_l6vv7i.png" alt="350yr" style={{ width: '100%', display: 'block' }} />
+                                        <ExpandableImage src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632896/etobicoke_350yr_l6vv7i.png" alt="350yr" style={{ width: '100%', display: 'block' }} />
+                                    </div>
+                                </div>
+                            </Block>
+                            <Block label="Flood Models & Videos">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                                    <div>
+                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632304/350-Year-LEC-Flood-3h_2D_copy_qszoz4.mp4" controls style={{ width: '55%', maxWidth: '480px', display: 'block', margin: '0 auto', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
+                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>350-Year LEC Flood 2D</p>
+                                    </div>
+                                    <div>
+                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632306/100_Year_LEC_Flyover-3D_copy_mgftbb.mp4" controls style={{ width: '100%', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
+                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>100-Year LEC Flyover 3D</p>
                                     </div>
                                 </div>
                             </Block>
@@ -1856,7 +2064,6 @@
                         { name: "Michael Zhang", title: "3rd year, Math & Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/toronto_Michael_o9j6oa.jpg" },
                     ]
                 },
-
             ];
             const avatarBg = a => a === 'green' ? 'linear-gradient(140deg,#c8e8dc 0%,#6ab89a 100%)' : 'linear-gradient(140deg,#c8dff0 0%,#5a9ec6 100%)';
             const initials = n => n.split(' ').slice(0, 2).map(w => w[0]).join('');
@@ -1890,31 +2097,39 @@
                                 </div>
                             </div>
                         ))}
-                        <div className="nav-buttons" style={{ marginTop: '4rem' }}>
-                            <button className="nav-button prev" onClick={onPrev}>← Back</button>
-                            <button className="nav-button" onClick={onNext}>Methodology →</button>
-                        </div>
                     </div>
                     <Footer />
                 </>
             );
         }
 
-        /* ─── MISC PAGES ─── */
+        /* ─── PARTNERS ─── */
         function PartnersPage() {
+            const partners = [
+                { name: 'Dynamic Graphics Project, University of Toronto', url: 'https://www.dgp.toronto.edu/' },
+                { name: 'School of Cities, University of Toronto', url: 'https://schoolofcities.utoronto.ca/' },
+                { name: 'Climate Smart Lab, UPEI', url: 'https://climatesmartlab.ca/' },
+                { name: 'Departments of Psychology, VIU', url: 'https://socialsciences.viu.ca/psychology' },
+                { name: 'Department of Psychology, University of Victoria', url: 'https://www.uvic.ca/socialsciences/psychology/index.php' },
+                { name: 'Ontario College of Art and Design', url: 'https://www.ocadu.ca/' },
+            ];
             return (
                 <>
                     <div className="content-page">
                         <div className="content-page-header"><h1>Partners</h1></div>
                         <div className="c-group">
                             <Block full>
-                                <ul>
-                                    <li><a href="https://www.dgp.toronto.edu/" target="_blank" rel="noopener noreferrer">Dynamic Graphics Project</a>, University of Toronto</li>
-                                    <li><a href="https://schoolofcities.utoronto.ca/" target="_blank" rel="noopener noreferrer">School of Cities</a>, University of Toronto</li>
-                                    <li><a href="https://climatesmartlab.ca/" target="_blank" rel="noopener noreferrer">Climate Smart Lab, UPEI</a></li>
-                                    <li>Departments of Psychology, <a href="https://socialsciences.viu.ca/psychology" target="_blank" rel="noopener noreferrer">VIU</a> and <a href="https://www.uvic.ca/socialsciences/psychology/index.php" target="_blank" rel="noopener noreferrer">University of Victoria</a></li>
-                                    <li><a href="https://www.ocadu.ca/" target="_blank" rel="noopener noreferrer">Ontario College of Art and Design</a></li>
-                                </ul>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    {partners.map((p, i) => (
+                                        <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
+                                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.25rem', background: 'white', border: '1px solid var(--border)', borderLeft: '3px solid var(--accent)', textDecoration: 'none', color: 'var(--ink)', transition: 'all 0.2s', gap: '1rem' }}
+                                            onMouseOver={e => { e.currentTarget.style.borderLeftColor = 'var(--primary)'; e.currentTarget.style.background = 'var(--blue-pale)'; }}
+                                            onMouseOut={e => { e.currentTarget.style.borderLeftColor = 'var(--accent)'; e.currentTarget.style.background = 'white'; }}>
+                                            <span style={{ fontSize: '0.975rem', fontWeight: '500', color: 'var(--primary)', fontFamily: "'DM Sans', sans-serif" }}>{p.name}</span>
+                                            <svg style={{ flexShrink: 0, opacity: 0.35 }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
+                                        </a>
+                                    ))}
+                                </div>
                             </Block>
                         </div>
                     </div>
@@ -1923,22 +2138,43 @@
             );
         }
 
+        /* ─── SPONSORS ─── */
         function SponsorsPage() {
+            const institutional = [
+                { name: 'Holgan 8T8 Foundation', url: null },
+                { name: 'Department of Computer Science, University of Toronto', url: 'https://web.cs.toronto.edu/' },
+                { name: 'School of Cities, University of Toronto', url: 'https://schoolofcities.utoronto.ca/' },
+                { name: 'SideFX', url: 'https://www.sidefx.com/' },
+            ];
+            const individual = [
+                { name: 'William T. Reeves and Ricki Blau' },
+                { name: 'John Baker' },
+                { name: 'Kim Davidson' },
+            ];
+            const Row = ({ name, url }) => (
+                <div
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.25rem', background: 'white', border: '1px solid var(--border)', borderLeft: '3px solid var(--primary)', gap: '1rem', cursor: url ? 'pointer' : 'default', transition: 'all 0.2s' }}
+                    onClick={() => url && window.open(url, '_blank')}
+                    onMouseOver={e => { if (url) { e.currentTarget.style.borderLeftColor = 'var(--accent)'; e.currentTarget.style.background = 'var(--blue-pale)'; } }}
+                    onMouseOut={e => { e.currentTarget.style.borderLeftColor = 'var(--primary)'; e.currentTarget.style.background = 'white'; }}>
+                    <span style={{ fontSize: '0.975rem', fontWeight: '500', color: 'var(--primary)', fontFamily: "'DM Sans', sans-serif" }}>{name}</span>
+                    {url && <svg style={{ flexShrink: 0, opacity: 0.35 }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>}
+                </div>
+            );
             return (
                 <>
                     <div className="content-page">
                         <div className="content-page-header"><h1>Sponsors</h1></div>
                         <div className="c-group">
-                            <Block full>
-                                <ul>
-                                    <li>Holgan 8T8 Foundation</li>
-                                    <li><a href="https://web.cs.toronto.edu/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Department of Computer Science</a>, University of Toronto</li>
-                                    <li><a href="https://schoolofcities.utoronto.ca/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>School of Cities</a>, University of Toronto</li>
-                                    <li>William T. Reeves and Ricki Blau</li>
-                                    <li>John Baker</li>
-                                    <li>Kim Davidson</li>
-                                    <li>SideFX</li>
-                                </ul>
+                            <Block label="Institutional">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    {institutional.map((s, i) => <Row key={i} name={s.name} url={s.url || null} />)}
+                                </div>
+                            </Block>
+                            <Block label="Individual">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    {individual.map((s, i) => <Row key={i} name={s.name} url={null} />)}
+                                </div>
                             </Block>
                         </div>
                     </div>
@@ -1955,7 +2191,37 @@
                         <div className="c-group">
                             <Block full>
                                 <p>If you would like to learn more about our work, please feel free to reach out. We welcome inquiries from researchers, educators, policymakers, and members of the public who are interested in climate change visualization and extreme weather modelling.</p>
-                                <p>You can contact us by email at: <a href="mailto:ronald.baecker@utoronto.ca" style={{ color: 'var(--primary)', fontWeight: '500' }}>ronald.baecker@utoronto.ca</a></p>
+                                <p>You can contact us by email at: <a className="text-link" href="mailto:ronald.baecker@utoronto.ca">ronald.baecker@utoronto.ca</a></p>
+                            </Block>
+                        </div>
+                    </div>
+                    <Footer />
+                </>
+            );
+        }
+
+        /* ─── EVENTS ─── */
+        function EventsPage() {
+            return (
+                <>
+                    <div className="content-page">
+                        <div className="content-page-header"><h1>Events</h1></div>
+                        <div className="c-group">
+                            <Block label="Sustainability Week">
+                                <p>Our team participated in <strong>Sustainability Week</strong>, showcasing our climate visualization work and engaging with students, faculty, and community members about the impacts of extreme weather and the importance of climate action.</p>
+                                <div style={{ margin: '1.5rem 0' }}>
+                                    <figure style={{ margin: 0, overflow: 'hidden', boxShadow: '0 4px 18px rgba(44,95,122,0.13)', background: 'white' }}>
+                                        <ExpandableImage
+                                            src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1775444503/sustainability_week_qes9zj.jpg"
+                                            alt="Sustainability Week event"
+                                            style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+                                        />
+                                        <figcaption style={{ padding: '0.65rem 1rem', fontSize: '0.82rem', color: 'var(--text-medium)', fontStyle: 'italic', borderTop: '1px solid rgba(44,95,122,0.08)', background: 'white' }}>
+                                            Envisioning Climate Futures at Sustainability Week
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <p>Events like these are an important part of our mission — bringing scientific insights about climate change and extreme weather directly to the public through accessible, engaging experiences.</p>
                             </Block>
                         </div>
                     </div>
@@ -1996,10 +2262,9 @@
                     <Navigation />
                     {page === 'home' && <LandingPage />}
                     {page === 'climate-change' && <ClimateChangePage />}
-
                     {page === 'methodology' && <MethodologyPage />}
                     {page === 'flood-modelling' && <FloodModellingPage />}
-                    {page === 'wildfire-modelling' && <ComingSoonPage title="Modelling and Visualizing Wildfires" />}
+                    {page === 'wildfire-modelling' && <ComingSoonPage title="Wildfire Modelling" />}
                     {page === 'don-river' && <DonRiver />}
                     {page === 'don-river-problem' && <DonRiverProblem />}
                     {page === 'don-river-solution' && <DonRiverSolution />}
@@ -2014,6 +2279,7 @@
                     {page === 'partners' && <PartnersPage />}
                     {page === 'sponsors' && <SponsorsPage />}
                     {page === 'contact' && <ContactPage />}
+                    {page === 'events' && <EventsPage />}
                 </div>
             );
         }
