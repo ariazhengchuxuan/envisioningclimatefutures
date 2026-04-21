@@ -1239,7 +1239,14 @@
 
         /* ─── ANALYTICS HELPER ─── */
         const trackEvent = (name, props = {}) => {
-            try { if (window.op) window.op('track', name, props); } catch(e) {}
+            if (window.op) {
+                try {
+                    window.op('track', name, props);
+                    console.log(`[OpenPanel] Logged event: ${name}`, props);
+                } catch(e) { console.error("[OpenPanel] Tracking error:", e); }
+            } else {
+                console.warn(`[OpenPanel] SDK not found. Queuing event: ${name}`);
+            }
         };
         /* ─── SCROLL DEPTH TRACKER ─── */
         (function() {
