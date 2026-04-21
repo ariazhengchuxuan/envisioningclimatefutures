@@ -1425,7 +1425,7 @@
 
         function SubNav({ items, active }) {
             return (
-                <div className="page-enter-delay-2" style={ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.5rem' }>
+                <div className="page-enter-delay-2" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
                     {items.map(item => (
                         <button key={item.key} onClick={() => { trackEvent(NAV_EVENTS[item.key] || 'nav_link_clicked', { destination: item.key }); window.location.hash = item.key; }}
                             style={{ padding: '0.6rem 1.4rem', background: active === item.key ? 'var(--primary)' : 'var(--white)', color: active === item.key ? 'var(--white)' : 'var(--primary)', border: '1.5px solid var(--primary)', borderRadius: '50px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '500', transition: 'var(--transition-smooth)', fontFamily: "'DM Sans',sans-serif", boxShadow: active === item.key ? 'var(--shadow-sm)' : 'none' }}>
