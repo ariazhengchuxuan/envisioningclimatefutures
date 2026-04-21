@@ -1287,7 +1287,7 @@
             return (
                 <div style={{ position: 'relative', width: '100%', ...containerStyle }}>
                     <img src={src} alt={alt} {...props} style={{ ...props.style, cursor: 'pointer' }} onClick={() => setExpanded(true)} />
-                    <button onClick={() => setExpanded(true)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(255,255,255,0.9)', border: '1px solid var(--border)', borderRadius: '4px', padding: '6px 12px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold', boxShadow: '0 2px 6px rgba(0,0,0,0.15)', color: 'var(--ink)', zIndex: 2, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <button onClick={() => setExpanded(true)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(255,255,255,0.9)', border: '1px solid var(--border)', borderRadius: '4px', padding: '6px 12px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold', boxShadow: '0 2px 6px rgba(0,0,0,0.15)', color: 'var(--ink)', zIndex: 2, display: 'flex', alignItems: 'center', gap: '4px' }} data-track="image_expand">
                         <span>⛶</span> Expand
                     </button>
                     {expanded && ReactDOM.createPortal(
@@ -1329,8 +1329,8 @@
                     <div className="carousel-img-container">
                         <img key={idx} src={images[idx].src} alt={images[idx].caption} className="carousel-img" />
                         <div className="carousel-gradient" />
-                        <button className="carousel-btn left" onClick={prev}>❮</button>
-                        <button className="carousel-btn right" onClick={next}>❯</button>
+                        <button className="carousel-btn left" onClick={prev} data-track="carousel_prev">❮</button>
+                        <button className="carousel-btn right" onClick={next} data-track="carousel_next">❯</button>
                     </div>
                     <div className="carousel-text-container">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
@@ -1365,8 +1365,8 @@
         function NavRow({ prev, next }) {
             return (
                 <div className="nav-buttons" style={{ marginTop: '3rem', display: 'flex', justifyContent: 'space-between' }}>
-                    {prev ? <button className="nav-button prev" onClick={() => { window.location.hash = prev.href; }}>← {prev.label}</button> : <div />}
-                    {next ? <button className="nav-button" onClick={() => { window.location.hash = next.href; }}>{next.label} →</button> : <div />}
+                    {prev ? <button className="nav-button prev" onClick={() => { window.location.hash = prev.href; }} data-track="page_nav_prev">← {prev.label}</button> : <div />}
+                    {next ? <button className="nav-button" onClick={() => { window.location.hash = next.href; }} data-track="page_nav_next">{next.label} →</button> : <div />}
                 </div>
             );
         }
@@ -1402,51 +1402,51 @@
                         <div className="nav-menu-content">
                             <div className="nav-links desktop-only">
                                 <div className="nav-item">
-                                    <span className="nav-link" onClick={() => navigate('home')}>Home</span>
+                                    <span className="nav-link" onClick={() => navigate('home')} data-track="nav_home">Home</span>
                                 </div>
                                 <div className="nav-item">
-                                    <span className="nav-link" onClick={() => navigate('climate-change')}>Climate and Weather</span>
+                                    <span className="nav-link" onClick={() => navigate('climate-change')} data-track="nav_climate_and_weather">Climate and Weather</span>
                                 </div>
                                 <div className="nav-item">
                                     <span className="nav-link">What We Do <Arr /></span>
                                     <div className="nav-dropdown">
-                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology')}>Our Methodology</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology-detail')}>Methodology in More Detail</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Modelling Floods</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Modelling Wildfires</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology')} data-track="nav_methodology">Our Methodology</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology-detail')} data-track="nav_methodology_detail">Methodology in More Detail</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')} data-track="nav_flood_modelling">Modelling Floods</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')} data-track="nav_wildfire_modelling">Modelling Wildfires</a>
                                     </div>
                                 </div>
                                 <div className="nav-item">
                                     <span className="nav-link">Our Work <Arr /></span>
                                     <div className="nav-dropdown">
                                         <div className="nav-sub-item">
-                                            <a className="nav-dropdown-item" onClick={() => navigate('don-river')}>Don River flooding (Toronto)</a>
+                                            <a className="nav-dropdown-item" onClick={() => navigate('don-river')} data-track="nav_don_river">Don River flooding (Toronto)</a>
                                             <div className="nav-sub-dropdown">
-                                                <a className="nav-dropdown-item" onClick={() => navigate('don-river-problem')}>The Problem</a>
-                                                <a className="nav-dropdown-item" onClick={() => navigate('don-river-solution')}>A Proposed Solution</a>
-                                                <a className="nav-dropdown-item" onClick={() => navigate('don-river-viz')}>Visualizations</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('don-river-problem')} data-track="nav_don_river_problem">The Problem</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('don-river-solution')} data-track="nav_don_river_solution">A Proposed Solution</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('don-river-viz')} data-track="nav_don_river_viz">Visualizations</a>
                                             </div>
                                         </div>
                                         <div className="nav-sub-item">
-                                            <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')}>Etobicoke Creek flooding (Mississauga)</a>
+                                            <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')} data-track="nav_etobicoke">Etobicoke Creek flooding (Mississauga)</a>
                                             <div className="nav-sub-dropdown">
-                                                <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-problem')}>The Problem</a>
-                                                <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-solution')}>A Proposed Solution</a>
-                                                <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-viz')}>Visualizations</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke_problem">The Problem</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-solution')} data-track="nav_etobicoke_solution">A Proposed Solution</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">Visualizations</a>
                                             </div>
                                         </div>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')}>North Rustico flooding (PEI)</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')}>Fort McMurray wildfire (Alberta)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')} data-track="nav_fort_mcmurray">Fort McMurray wildfire (Alberta)</a>
                                     </div>
                                 </div>
                                 <div className="nav-item">
                                     <span className="nav-link">Who We Are <Arr /></span>
                                     <div className="nav-dropdown">
-                                        <a className="nav-dropdown-item" onClick={() => navigate('team')}>Team</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('partners')}>Partners</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('sponsors')}>Sponsors</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('contact')}>Contact</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('events')}>Events</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('team')} data-track="nav_team">Team</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('partners')} data-track="nav_partners">Partners</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('sponsors')} data-track="nav_sponsors">Sponsors</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('contact')} data-track="nav_contact">Contact</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('events')} data-track="nav_events">Events</a>
                                     </div>
                                 </div>
                             </div>
@@ -1464,10 +1464,10 @@
                                 <span className="nav-link mob-section" onClick={() => toggleSection('whatwedo')}>What We Do <Arr /></span>
                                 {openSection === 'whatwedo' && (
                                     <div className="mob-dropdown">
-                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology')}>Our Methodology</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology-detail')}>Methodology in More Detail</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')}>Modelling Floods</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')}>Modelling Wildfires</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology')} data-track="nav_methodology">Our Methodology</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('methodology-detail')} data-track="nav_methodology_detail">Methodology in More Detail</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('flood-modelling')} data-track="nav_flood_modelling">Modelling Floods</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('wildfire-modelling')} data-track="nav_wildfire_modelling">Modelling Wildfires</a>
                                     </div>
                                 )}
                             </div>
@@ -1475,16 +1475,16 @@
                                 <span className="nav-link mob-section" onClick={() => toggleSection('examples')}>Our Work <Arr /></span>
                                 {openSection === 'examples' && (
                                     <div className="mob-dropdown">
-                                        <a className="nav-dropdown-item" onClick={() => navigate('don-river')}>Don River flooding (Toronto)</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-problem')}>↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-solution')}>↳ A Proposed Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-viz')}>↳ Visualizations</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')}>Etobicoke Creek flooding (Mississauga)</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-problem')}>↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-solution')}>↳ A Proposed Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-viz')}>↳ Visualizations</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')}>North Rustico flooding (PEI)</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')}>Fort McMurray wildfire (Alberta)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('don-river')} data-track="nav_don_river">Don River flooding (Toronto)</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-problem')} data-track="nav_don_river_problem">↳ The Problem</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-solution')} data-track="nav_don_river_solution">↳ A Proposed Solution</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-viz')} data-track="nav_don_river_viz">↳ Visualizations</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')} data-track="nav_etobicoke">Etobicoke Creek flooding (Mississauga)</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke_problem">↳ The Problem</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-solution')} data-track="nav_etobicoke_solution">↳ A Proposed Solution</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">↳ Visualizations</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')} data-track="nav_fort_mcmurray">Fort McMurray wildfire (Alberta)</a>
                                     </div>
                                 )}
                             </div>
@@ -1492,11 +1492,11 @@
                                 <span className="nav-link mob-section" onClick={() => toggleSection('whoweare')}>Who We Are <Arr /></span>
                                 {openSection === 'whoweare' && (
                                     <div className="mob-dropdown">
-                                        <a className="nav-dropdown-item" onClick={() => navigate('team')}>Team</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('partners')}>Partners</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('sponsors')}>Sponsors</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('contact')}>Contact</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('events')}>Events</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('team')} data-track="nav_team">Team</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('partners')} data-track="nav_partners">Partners</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('sponsors')} data-track="nav_sponsors">Sponsors</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('contact')} data-track="nav_contact">Contact</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('events')} data-track="nav_events">Events</a>
                                     </div>
                                 )}
                             </div>
@@ -1511,24 +1511,24 @@
                 <footer className="footer">
                     <div className="footer-content">
                         <nav className="footer-nav">
-                            <a className="footer-nav-link" onClick={() => { window.location.hash = ''; }}>Home</a>
-                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'climate-change'; }}>Climate and Weather</a>
-                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'methodology'; }}>What We Do</a>
-                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'don-river'; }}>Our Work</a>
-                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'team'; }}>Who We Are</a>
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = ''; }} data-track="footer_nav_home">Home</a>
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'climate-change'; }} data-track="footer_nav_climate">Climate and Weather</a>
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'methodology'; }} data-track="footer_nav_methodology">What We Do</a>
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'don-river'; }} data-track="footer_nav_our_work">Our Work</a>
+                            <a className="footer-nav-link" onClick={() => { window.location.hash = 'team'; }} data-track="footer_nav_who_we_are">Who We Are</a>
                         </nav>
                         <p className="footer-copyright">© 2025 envisioningclimatefutures.org. All rights reserved.</p>
                         <div className="footer-logos">
-                            <a href="https://www.utoronto.ca/" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.utoronto.ca/" target="_blank" rel="noopener noreferrer" data-track="footer_logo_utoronto">
                                 <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_uoft_v4pjy1.png" alt="University of Toronto" />
                             </a>
-                            <a href="https://www.ocadu.ca/" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.ocadu.ca/" target="_blank" rel="noopener noreferrer" data-track="footer_logo_ocad">
                                 <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_ocad_jaagm6.png" alt="OCAD University" />
                             </a>
-                            <a href="https://www.upei.ca/" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.upei.ca/" target="_blank" rel="noopener noreferrer" data-track="footer_logo_upei">
                                 <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801427/logo_upei_tqeg0d.png" alt="University of Prince Edward Island" />
                             </a>
-                            <a href="https://www.viu.ca/" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.viu.ca/" target="_blank" rel="noopener noreferrer" data-track="footer_logo_viu">
                                 <img src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773801426/logo_viu_thozre.png" alt="Vancouver Island University" />
                             </a>
                         </div>
@@ -1562,7 +1562,7 @@
                             <h1 style={{ fontSize: '3.8rem', fontWeight: '700', color: 'var(--primary)', lineHeight: '1.1', marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
                                 Seeing the Future of Our Climate.
                             </h1>
-                            <button onClick={() => { window.location.hash = 'don-river'; }} style={{ padding: '0.9rem 2.2rem', fontSize: '1.05rem', fontWeight: '600', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', boxShadow: '0 8px 20px rgba(22, 63, 89, 0.25)', transition: 'transform 0.2s', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }} onMouseOver={e => e.currentTarget.style.transform = 'translateY(-3px)'} onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                            <button onClick={() => { window.location.hash = 'don-river'; }} style={{ padding: '0.9rem 2.2rem', fontSize: '1.05rem', fontWeight: '600', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', boxShadow: '0 8px 20px rgba(22, 63, 89, 0.25)', transition: 'transform 0.2s', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }} data-track="cta_see_our_work" onMouseOver={e => e.currentTarget.style.transform = 'translateY(-3px)'} onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}>
                                 See Our Work <span style={{ fontSize: '1.2rem' }}>→</span>
                             </button>
                         </div>
@@ -1677,9 +1677,9 @@
                                     />
                                 </div>
                                 <p>
-                                    <a className="text-link ext" href="https://www.carbonbrief.org/" target="_blank" rel="noopener noreferrer">carbonbrief.org</a>
+                                    <a className="text-link ext" href="https://www.carbonbrief.org/" target="_blank" rel="noopener noreferrer" data-track="link_carbonbrief">carbonbrief.org</a>
                                     <span style={{ margin: '0 0.75rem', color: 'var(--text-light)' }}>·</span>
-                                    <a className="text-link ext" href="https://www.worldweatherattribution.org/" target="_blank" rel="noopener noreferrer">worldweatherattribution.org</a>
+                                    <a className="text-link ext" href="https://www.worldweatherattribution.org/" target="_blank" rel="noopener noreferrer" data-track="link_worldweatherattribution">worldweatherattribution.org</a>
                                 </p>
                                 <p style={{ marginTop: '1rem' }}>Our research and this website document cases and methods for mobilizing individual and community action by demonstrating that inaction in the face of climate change will lead to more destruction from extreme weather, whereas there are doable actions by both individuals and communities that will make us safer.</p>
                             </Block>
