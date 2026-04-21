@@ -1363,11 +1363,13 @@
             );
         }
 
+            const NAV_EVENTS = {'home':'nav_home_clicked','climate-change':'nav_home_clicked','methodology':'nav_methodology_clicked','methodology-detail':'nav_methodology_clicked','flood-modelling':'nav_methodology_clicked','wildfire-modelling':'nav_methodology_clicked','team':'nav_team_clicked','partners':'nav_team_clicked','sponsors':'nav_team_clicked','events':'nav_team_clicked','contact':'nav_contact_clicked','don-river':'case_card_don_river_clicked','don-river-problem':'case_card_don_river_clicked','don-river-solution':'case_card_don_river_clicked','don-river-viz':'case_card_don_river_clicked','etobicoke':'case_card_etobicoke_clicked','etobicoke-problem':'case_card_etobicoke_clicked','etobicoke-solution':'case_card_etobicoke_clicked','etobicoke-viz':'case_card_etobicoke_clicked','fort-mcmurray':'case_card_wildfire_clicked','north-rustico':'case_card_coastal_clicked'};
+
         function SubNav({ items, active }) {
             return (
-                <div className="page-enter-delay-2" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+                <div className="page-enter-delay-2" style={ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2.5rem' }>
                     {items.map(item => (
-                        <button key={item.key} onClick={() => { window.location.hash = item.key; }}
+                        <button key={item.key} onClick={() => { trackEvent(NAV_EVENTS[item.key] || 'nav_link_clicked', { destination: item.key }); window.location.hash = item.key; }}
                             style={{ padding: '0.6rem 1.4rem', background: active === item.key ? 'var(--primary)' : 'var(--white)', color: active === item.key ? 'var(--white)' : 'var(--primary)', border: '1.5px solid var(--primary)', borderRadius: '50px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '500', transition: 'var(--transition-smooth)', fontFamily: "'DM Sans',sans-serif", boxShadow: active === item.key ? 'var(--shadow-sm)' : 'none' }}>
                             {item.label}
                         </button>
@@ -1401,7 +1403,6 @@
                 window.addEventListener('resize', onResize);
                 return () => window.removeEventListener('resize', onResize);
             }, []);
-            const NAV_EVENTS = {'home':'nav_home_clicked','climate-change':'nav_home_clicked','methodology':'nav_methodology_clicked','methodology-detail':'nav_methodology_clicked','flood-modelling':'nav_methodology_clicked','wildfire-modelling':'nav_methodology_clicked','team':'nav_team_clicked','partners':'nav_team_clicked','sponsors':'nav_team_clicked','events':'nav_team_clicked','contact':'nav_contact_clicked','don-river':'case_card_don_river_clicked','don-river-problem':'case_card_don_river_clicked','don-river-solution':'case_card_don_river_clicked','don-river-viz':'case_card_don_river_clicked','etobicoke':'case_card_etobicoke_clicked','etobicoke-problem':'case_card_etobicoke_clicked','etobicoke-solution':'case_card_etobicoke_clicked','etobicoke-viz':'case_card_etobicoke_clicked','fort-mcmurray':'case_card_wildfire_clicked','north-rustico':'case_card_coastal_clicked'};
             const navigate = p => { trackEvent(NAV_EVENTS[p] || 'nav_link_clicked', { destination: p }); window.location.hash = p === 'home' ? '' : `#${p}`; setMenuOpen(false); setOpenSection(null); setOpenSub(null); };
             const toggleSection = k => { setOpenSection(prev => prev === k ? null : k); setOpenSub(null); };
             const Arr = () => (<svg className="nav-link-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>);
@@ -1804,7 +1805,7 @@
                                 <p>This website reports on our first case studies, <a className="text-link" href="#don-river">flooding at the mouth of the Don River (Toronto)</a>, and <a className="text-link" href="#etobicoke">flooding of the Little Etobicoke Creek (Mississauga)</a>.</p>
                             </Block>
                             <Block label="Modelling Systems">
-                                <p>Past flooding is reproduced mathematically by modelling the flood in one of a set of computer systems for doing this. Thus far, we have used in our work both <a className="text-link ext" href="https://www.esri.com/content/dam/esrisites/en-us/media/technical-papers/flood-simulation-arcgis-pro.pdf" target="_blank" rel="noopener noreferrer">ESRI ArcGIS</a> and the <a className="text-link ext" href="https://www.civilgeo.com/the-road-to-hec-ras/" target="_blank" rel="noopener noreferrer">U.S. Army's HEC-RAS</a>.</p>
+                                <p>Past flooding is reproduced mathematically by modelling the flood in one of a set of computer systems for doing this. Thus far, we have used in our work both <a className="text-link ext" href="https://www.esri.com/content/dam/esrisites/en-us/media/technical-papers/flood-simulation-arcgis-pro.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'esri_arcgis' })}>ESRI ArcGIS</a> and the <a className="text-link ext" href="https://www.civilgeo.com/the-road-to-hec-ras/" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'hec_ras' })}>U.S. Army's HEC-RAS</a>.</p>
                             </Block>
                             <Block label="Model Inputs">
                                 <p>Data used as input to a flood model includes:</p>
@@ -1848,7 +1849,7 @@
                                 <p>Use the tabs above to explore <strong>The Problem</strong> (the history and causes of flooding), <strong>A Proposed Solution</strong> (the Port Lands Flood Protection project), and <strong>Visualizations</strong> (our flood modelling results).</p>
                             </Block>
                             <Block label="Before & After">
-                                <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls style={{ width: '100%', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
+                                <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls style={{ width: '100%', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'don_river_350yr' })} />
                                 <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>Don River Before & After Reconstruction</p>
                             </Block>
                             <Block label="Key Facts">
@@ -1890,7 +1891,7 @@
                                 ]} />
                             </Block>
                             <Block label="Improvement Plan">
-                                <p>In 1886, the city of Toronto initiated the <a className="text-link ext" href="https://jenniferbonnell.com/books-publications/reclaiming-the-don/" target="_blank" rel="noopener noreferrer">"Don River Improvement Plan"</a>. Concerns that led to this Plan were threefold: public health dangers from urban wastes including sewage in the river, damage from floods, and impediments to Lake Ontario shipping from silt build-up erroneously attributed to the river. The plan was to widen, deepen, and straighten the river channel in the last 2 kilometers before it reached the lake. Additional benefits from the plan were intended to be allowing ships to come up the river and railroad tracks on both banks of the river.</p>
+                                <p>In 1886, the city of Toronto initiated the <a className="text-link ext" href="https://jenniferbonnell.com/books-publications/reclaiming-the-don/" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'reclaiming_don' })}>"Don River Improvement Plan"</a>. Concerns that led to this Plan were threefold: public health dangers from urban wastes including sewage in the river, damage from floods, and impediments to Lake Ontario shipping from silt build-up erroneously attributed to the river. The plan was to widen, deepen, and straighten the river channel in the last 2 kilometers before it reached the lake. Additional benefits from the plan were intended to be allowing ships to come up the river and railroad tracks on both banks of the river.</p>
                             </Block>
                             <Block label="Keating Channel">
                                 <p>The project suffered from cost overruns, technical missteps, political controversies, and a gradual weakening of its specifications. Most of its goals were not achieved. The final mistake was to build the Keating Channel, which forced the river to make a 90-degree turn as it approached the lake.</p>
@@ -1916,7 +1917,7 @@
                         <SubNav items={donItems} active="don-river-solution" />
                         <div className="c-group">
                             <Block label="1989 Meeting">
-                                <p>In 1989, over 500 people attended a public meeting with the city of Toronto and the Toronto and Region Conservation Authority (TRCA) to discuss ways to clean up the Don watershed (<a className="text-link ext" href="https://www.waterfrontoronto.ca/news/bringing-back-don-30-years-citizen-advocacy" target="_blank" rel="noopener noreferrer">Waterfront Toronto</a>). The TRCA was an organization set up by the province and then given enhanced powers after 81 people died during the 1954 flooding of the Humber River caused by Hurricane Hazel.</p>
+                                <p>In 1989, over 500 people attended a public meeting with the city of Toronto and the Toronto and Region Conservation Authority (TRCA) to discuss ways to clean up the Don watershed (<a className="text-link ext" href="https://www.waterfrontoronto.ca/news/bringing-back-don-30-years-citizen-advocacy" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'waterfront_toronto' })}>Waterfront Toronto</a>). The TRCA was an organization set up by the province and then given enhanced powers after 81 people died during the 1954 flooding of the Humber River caused by Hurricane Hazel.</p>
                             </Block>
                             <Block label="2007 Competition">
                                 <p>After years of discussion and planning, Waterfront Toronto announced in February 2007 an international design competition to finally solve the problem of flooding at the mouth of the Don:</p>
@@ -1931,11 +1932,11 @@
                                 </div>
                                 <div style={{ background: 'rgba(44,95,122,0.04)', border: '1px solid rgba(44,95,122,0.12)', padding: '1.1rem 1.4rem', fontSize: '0.88rem', color: 'var(--text-medium)', lineHeight: '1.8' }}>
                                     <span style={{ fontWeight: '600', color: 'var(--primary)', marginRight: '0.5rem' }}>References:</span>
-                                    <a className="text-link ext" href="https://www.waterfrontoronto.ca/our-projects/don-mouth-naturalization-and-port-lands-flood-protection" target="_blank" rel="noopener noreferrer">Don Mouth Naturalization and Port Lands Flood Protection</a>
+                                    <a className="text-link ext" href="https://www.waterfrontoronto.ca/our-projects/don-mouth-naturalization-and-port-lands-flood-protection" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'don_mouth' })}>Don Mouth Naturalization and Port Lands Flood Protection</a>
                                     <span style={{ margin: '0 0.5rem', color: 'var(--text-light)' }}>·</span>
-                                    <a className="text-link ext" href="https://housing-infrastructure.canada.ca/alt-format/pdf/eval/2021-2-eval-twri-plfp-pt-eng.pdf" target="_blank" rel="noopener noreferrer">Federal evaluation report</a>
+                                    <a className="text-link ext" href="https://housing-infrastructure.canada.ca/alt-format/pdf/eval/2021-2-eval-twri-plfp-pt-eng.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'federal_report' })}>Federal evaluation report</a>
                                     <span style={{ margin: '0 0.5rem', color: 'var(--text-light)' }}>·</span>
-                                    <a className="text-link ext" href="https://www.mvvainc.com/projects/port-lands-flood-protection" target="_blank" rel="noopener noreferrer">MVVA design project</a>
+                                    <a className="text-link ext" href="https://www.mvvainc.com/projects/port-lands-flood-protection" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'mvva_design' })}>MVVA design project</a>
                                 </div>
                             </Block>
                         </div>
@@ -1960,10 +1961,10 @@
                                 <p>We have generated portrayals of real floods and plausible scenarios predicted by flood models. The figure portrays 10-, 100-, and 350-year (their "return periods" — measures of intensity) floods before and after the river mouth reconstruction completed in 2025.</p>
                                 <ExpandableImage src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1772707919/don_river_year_sde6oe.png" alt="Return periods" style={{ width: '100%', display: 'block' }} containerStyle={{ marginBottom: '1.5rem' }} />
                                 <div>
-                                    <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls style={{ width: '100%', marginBottom: '1.5rem', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
+                                    <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls style={{ width: '100%', marginBottom: '1.5rem', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'don_river_solution_350yr' })} />
                                     <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Before & After reconstruction video</p>
                                 </div>
-                                <p>The Port Lands at the mouth of the river can now withstand major storms. There is still flooding to the east, which is being addressed by a subsequent flood mitigation project now underway (<a className="text-link ext" href="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2021/09/17175237/BEFP-Final-Class-EA-Report-August-2021_with-exec-summary.pdf" target="_blank" rel="noopener noreferrer">BEFP Final Class EA Report</a>).</p>
+                                <p>The Port Lands at the mouth of the river can now withstand major storms. There is still flooding to the east, which is being addressed by a subsequent flood mitigation project now underway (<a className="text-link ext" href="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2021/09/17175237/BEFP-Final-Class-EA-Report-August-2021_with-exec-summary.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'befp_report' })}>BEFP Final Class EA Report</a>).</p>
                             </Block>
                         </div>
                         <NavRow prev={{ href: 'don-river-solution', label: 'A Proposed Solution' }} next={{ href: 'etobicoke', label: 'Next Case: Etobicoke Creek' }} />
@@ -2046,8 +2047,8 @@
                                         Newspaper Coverage
                                     </h4>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                                        <a className="text-link ext" href="https://thepointer.com/article/2024-07-29/11-years-2-destructive-floods-millions-in-damages-why-hasn-t-mississauga-moved-quicker-to-protect-residents" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px' }}>The Pointer (11 years, 2 destructive floods)</a>
-                                        <a className="text-link ext" href="https://www.mississauga.com/news/council/start-the-project-immediately-mississauga-residents-push-city-to-speed-up-80m-stormwater-plan-after/article_f21a06a6-916f-594a-b2d3-86df8b66bb82.html" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px' }}>Mississauga.com ($80M stormwater plan)</a>
+                                        <a className="text-link ext" href="https://thepointer.com/article/2024-07-29/11-years-2-destructive-floods-millions-in-damages-why-hasn-t-mississauga-moved-quicker-to-protect-residents" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px' }} onClick={() => trackEvent('external_link_clicked', { url: 'the_pointer_article' })}>The Pointer (11 years, 2 destructive floods)</a>
+                                        <a className="text-link ext" href="https://www.mississauga.com/news/council/start-the-project-immediately-mississauga-residents-push-city-to-speed-up-80m-stormwater-plan-after/article_f21a06a6-916f-594a-b2d3-86df8b66bb82.html" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'baseline', gap: '6px' }} onClick={() => trackEvent('external_link_clicked', { url: 'mississauga_article' })}>Mississauga.com ($80M stormwater plan)</a>
                                     </div>
                                 </div>
                             </Block>
@@ -2075,8 +2076,8 @@
                                 <div style={{ margin: '1.5rem 0' }}><ImgCard src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1773632297/2024_Dixie_Area_Proposal_FLOOD._MITIGATION_Screenshot_2026-03-09_at_10.19.27_copy_d6uwbg.png" alt="Dixie-Dundas proposal" caption="2024 Dixie-Dundas Area Proposal Flood Mitigation" /></div>
                                 <p>Reports:</p>
                                 <ul>
-                                    <li><a className="text-link ext" href="https://www.mississauga.ca/wp-content/uploads/2023/05/Dixie-Dundas_PIC-2_FINAL.pdf" target="_blank" rel="noopener noreferrer">Dixie-Dundas Flood Mitigation Feasibility Study</a></li>
-                                    <li><a className="text-link ext" href="https://www.mississauga.ca/wp-content/uploads/2024/06/19152312/dixie-dundas-flood-mitigation-environmental-assessment-study.pdf" target="_blank" rel="noopener noreferrer">Dixie-Dundas Flood Mitigation Environmental Assessment Study</a></li>
+                                    <li><a className="text-link ext" href="https://www.mississauga.ca/wp-content/uploads/2023/05/Dixie-Dundas_PIC-2_FINAL.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'dixie_dundas_feasibility' })}>Dixie-Dundas Flood Mitigation Feasibility Study</a></li>
+                                    <li><a className="text-link ext" href="https://www.mississauga.ca/wp-content/uploads/2024/06/19152312/dixie-dundas-flood-mitigation-environmental-assessment-study.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'dixie_dundas_ea' })}>Dixie-Dundas Flood Mitigation Environmental Assessment Study</a></li>
                                 </ul>
                             </Block>
                         </div>
@@ -2121,11 +2122,11 @@
                             <Block label="Flood Models & Videos">
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
                                     <div>
-                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632304/350-Year-LEC-Flood-3h_2D_copy_qszoz4.mp4" controls style={{ width: '55%', maxWidth: '480px', display: 'block', margin: '0 auto', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
+                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632304/350-Year-LEC-Flood-3h_2D_copy_qszoz4.mp4" controls style={{ width: '55%', maxWidth: '480px', display: 'block', margin: '0 auto', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'etobicoke_350yr_2d' })} />
                                         <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>350-Year LEC Flood 2D</p>
                                     </div>
                                     <div>
-                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632306/100_Year_LEC_Flyover-3D_copy_mgftbb.mp4" controls style={{ width: '100%', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} />
+                                        <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632306/100_Year_LEC_Flyover-3D_copy_mgftbb.mp4" controls style={{ width: '100%', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'etobicoke_100yr_3d' })} />
                                         <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>100-Year LEC Flyover 3D</p>
                                     </div>
                                 </div>
