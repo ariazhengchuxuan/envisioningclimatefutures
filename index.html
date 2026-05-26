@@ -712,12 +712,12 @@
 
         .c-label h2 {
             font-family: 'DM Sans', sans-serif;
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
             font-style: normal;
             text-transform: none;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.015em;
             line-height: 1.25;
             display: flex;
             flex-direction: column;
@@ -726,13 +726,7 @@
         }
 
         .c-label h2::before {
-            content: '';
-            display: inline-block;
-            width: 24px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 2px;
-            flex-shrink: 0;
+            display: none;
         }
 
         .c-content {
@@ -1456,6 +1450,7 @@
 
         const donItems = [{ key: 'don-river', label: 'Overview' }, { key: 'don-river-problem', label: 'The Problem' }, { key: 'don-river-solution', label: 'A Proposed Solution' }, { key: 'don-river-viz', label: 'Visualizations' }];
         const etoItems = [{ key: 'etobicoke', label: 'Overview' }, { key: 'etobicoke-problem', label: 'The Problem' }, { key: 'etobicoke-solution', label: 'A Proposed Solution' }, { key: 'etobicoke-viz', label: 'Visualizations' }];
+        const rustItems = [{ key: 'north-rustico', label: 'Overview' }, { key: 'north-rustico-problem', label: 'The Problem' }, { key: 'north-rustico-viz', label: 'Visualizations' }];
 
 
         function NavRow({ prev, next }) {
@@ -1530,7 +1525,13 @@
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">Visualizations</a>
                                             </div>
                                         </div>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
+                                        <div className="nav-sub-item">
+                                            <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
+                                            <div className="nav-sub-dropdown">
+                                                <a className="nav-dropdown-item" onClick={() => navigate('north-rustico-problem')} data-track="nav_north_rustico_problem">The Problem</a>
+                                                <a className="nav-dropdown-item" onClick={() => navigate('north-rustico-viz')} data-track="nav_north_rustico_viz">Visualizations</a>
+                                            </div>
+                                        </div>
                                         <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')} data-track="nav_fort_mcmurray">Fort McMurray wildfire (Alberta)</a>
                                     </div>
                                 </div>
@@ -1579,6 +1580,8 @@
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-solution')} data-track="nav_etobicoke_solution">↳ A Proposed Solution</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">↳ Visualizations</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('north-rustico-problem')} data-track="nav_north_rustico_problem">↳ The Problem</a>
+                                        <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('north-rustico-viz')} data-track="nav_north_rustico_viz">↳ Visualizations</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')} data-track="nav_fort_mcmurray">Fort McMurray wildfire (Alberta)</a>
                                     </div>
                                 )}
@@ -1732,8 +1735,7 @@
                         alignItems: 'start',
                     }}>
                         <FadeInUp delay={0}>
-                            <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                                <span style={{ display: 'inline-block', width: '20px', height: '3px', background: 'var(--accent)', borderRadius: '2px' }} />
+                            <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '1.25rem', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
                                 The Challenge
                             </h2>
                             <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: 'var(--ink-mid)', margin: 0, fontWeight: '400' }}>
@@ -1741,8 +1743,7 @@
                             </p>
                         </FadeInUp>
                         <FadeInUp delay={0.15}>
-                            <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                                <span style={{ display: 'inline-block', width: '20px', height: '3px', background: 'var(--accent)', borderRadius: '2px' }} />
+                            <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '1.25rem', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
                                 Our Approach
                             </h2>
                             <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: 'var(--ink-mid)', fontWeight: '400', margin: '0 0 1.25rem' }}>
@@ -2246,6 +2247,185 @@
             );
         }
 
+        /* ─── NORTH RUSTICO ─── */
+        function NorthRustico() {
+            return (
+                <>
+                    <div className="content-page">
+                        <div className="content-page-header">
+                            <h1>Hurricane Fiona (2022) flooding of North Rustico (Prince Edward Island)</h1>
+                            <div className="page-location"><span>Prince Edward Island</span></div>
+                        </div>
+                        <SubNav items={rustItems} active="north-rustico" />
+                        <div className="c-group">
+                            <Block full>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginBottom: '1.5rem' }}>
+                                    Prince Edward Island is the smallest Canadian province. It also has the smallest population and the highest population density. Because of its exposed location in the north Atlantic, it is subject to many winter storms and to fall storms arising from the tail end of hurricanes originating in the Caribbean. Most recently, the province has been damaged by Hurricane Dorian in 2019 and more significantly Hurricane Fiona in 2022.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)' }}>
+                                    In our project, we focused on Hurricane Fiona, and on North Rustico, a town of about 600 permanent residents that is located on the north shore of PEI.
+                                </p>
+                            </Block>
+                        </div>
+                        <NavRow next={{ href: 'north-rustico-problem', label: 'The Problem' }} />
+                    </div>
+                    <Footer />
+                </>
+            );
+        }
+
+        function NorthRusticoProblem() {
+            return (
+                <>
+                    <div className="content-page">
+                        <div className="content-page-header">
+                            <h1>Hurricane Fiona (2022) flooding of North Rustico (Prince Edward Island)</h1>
+                            <div className="page-location"><span>Prince Edward Island</span></div>
+                        </div>
+                        <SubNav items={rustItems} active="north-rustico-problem" />
+                        <div className="c-group">
+                            <Block label="The Problem">
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginBottom: '1.5rem' }}>
+                                    Fiona made landfall in PEI on Sept 23 as a category 2 hurricane. Maximum sustained winds were measured at 170 km/hour. Rainfall was widespread and in location amounted to 117 mm.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)' }}>
+                                    Damage was widespread. By the next morning, 95% of the province was without power; in many cases, service was not restored for days. About 10% of the forest cover was affected; in these areas, it was typical for 70% of the trees to be blown down. There was also significant damage to homes and infrastructure.
+                                </p>
+                            </Block>
+
+                            <Block label="Storm Footage">
+                                <p style={{ marginBottom: '1.5rem', fontSize: '1.1rem' }}>Here is one video taken during an intense period during the storm.</p>
+                                <div style={{ 
+                                    position: 'relative', 
+                                    paddingBottom: '56.25%', 
+                                    height: 0, 
+                                    overflow: 'hidden', 
+                                    borderRadius: '12px', 
+                                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.15)',
+                                    background: '#000',
+                                    border: '1px solid rgba(0,0,0,0.1)'
+                                }}>
+                                    <iframe 
+                                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                                        src="https://www.youtube.com/embed/oNBHLzIhHz8" 
+                                        title="Hurricane Fiona Storm Footage" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowFullScreen
+                                    />
+                                </div>
+                            </Block>
+                        </div>
+                        <NavRow prev={{ href: 'north-rustico', label: 'Overview' }} next={{ href: 'north-rustico-viz', label: 'Visualizations' }} />
+                    </div>
+                    <Footer />
+                </>
+            );
+        }
+
+        function NorthRusticoViz() {
+            const [activeVid, setActiveVid] = useState(0);
+            const videos = [
+                { 
+                    id: 1, 
+                    title: 'Video 1', 
+                    desc: 'Our first video shows a panorama of the flooding at North Rustico Harbour.',
+                    url: 'https://res.cloudinary.com/dd4p37hyq/video/upload/v1779833051/Shot_1_red_water_copy_mdzhpe.mp4'
+                },
+                { 
+                    id: 2, 
+                    title: 'Video 2', 
+                    desc: 'The second video focuses on a smaller area.',
+                    url: 'https://res.cloudinary.com/dd4p37hyq/video/upload/v1779833058/Shot_2_copy_gathwz.mp4'
+                },
+                { 
+                    id: 3, 
+                    title: 'Video 3', 
+                    desc: 'The third video displays the results of our simulation and visualization in comparison to some of the recorded video.',
+                    url: 'https://res.cloudinary.com/dd4p37hyq/video/upload/v1779833071/Shot_3_time_storm_water_copy_abgtu0.mp4'
+                }
+            ];
+            
+            return (
+                <>
+                    <div className="content-page">
+                        <div className="content-page-header">
+                            <h1>Hurricane Fiona (2022) flooding of North Rustico (Prince Edward Island)</h1>
+                            <div className="page-location"><span>Prince Edward Island</span></div>
+                        </div>
+                        <SubNav items={rustItems} active="north-rustico-viz" />
+                        <div className="c-group">
+                            <Block label="Visualizations">
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginBottom: '2rem' }}>
+                                    Using data giving the maximum water level at various points on the shoreline, we re-created the storm as experienced at North Rustico Harbour visually.
+                                </p>
+                                
+                                {/* Horizontal Modern Tab Selector */}
+                                <div style={{ 
+                                    display: 'flex', 
+                                    gap: '2.5rem', 
+                                    marginBottom: '2rem', 
+                                    borderBottom: '1px solid #e2e8f0', 
+                                    paddingBottom: '0.75rem',
+                                    flexWrap: 'wrap'
+                                }}>
+                                    {videos.map((vid, index) => (
+                                        <button 
+                                            key={vid.id} 
+                                            onClick={() => {
+                                                setActiveVid(index);
+                                                trackEvent('case_video_tab_clicked', { location: 'north_rustico', video: vid.id });
+                                            }}
+                                            style={{
+                                                background: 'none',
+                                                border: 'none',
+                                                padding: '0.5rem 0',
+                                                color: activeVid === index ? '#1e4d58' : '#64748b',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                borderBottom: activeVid === index ? '2.5px solid #1e4d58' : '2.5px solid transparent',
+                                                fontFamily: "'DM Sans', sans-serif",
+                                                fontSize: '1rem',
+                                                transition: 'all 0.2s',
+                                                marginBottom: '-0.85rem'
+                                            }}>
+                                            {vid.title}
+                                        </button>
+                                    ))}
+                                </div>
+                                
+                                {/* Video Description above player */}
+                                <p style={{ color: 'var(--ink)', fontSize: '1.15rem', lineHeight: '1.85', marginBottom: '1.5rem' }}>
+                                    {videos[activeVid].desc}
+                                </p>
+                                
+                                {/* Video Frame - Large Full-width */}
+                                <div style={{
+                                    width: '100%',
+                                    aspectRatio: '16/9',
+                                    background: '#000',
+                                    borderRadius: '12px',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 15px 35px -5px rgba(0, 0, 0, 0.2)',
+                                    border: '1px solid rgba(0,0,0,0.1)',
+                                    marginBottom: '1rem'
+                                }}>
+                                    <video 
+                                        key={activeVid}
+                                        src={videos[activeVid].url} 
+                                        controls 
+                                        style={{ width: '100%', height: '100%', display: 'block', backgroundColor: '#000' }} 
+                                        onPlay={() => trackEvent('case_video_play_clicked', { location: 'north_rustico_video_' + videos[activeVid].id })} 
+                                    />
+                                </div>
+                            </Block>
+                        </div>
+                        <NavRow prev={{ href: 'north-rustico-problem', label: 'The Problem' }} />
+                    </div>
+                    <Footer />
+                </>
+            );
+        }
+
         /* ─── TEAM ─── */
         function TeamPage({ onNext, onPrev }) {
             const groups = [
@@ -2518,7 +2698,9 @@
                     {page === 'etobicoke-problem' && <EtobicokeProblem />}
                     {page === 'etobicoke-solution' && <EtobicokeSolution />}
                     {page === 'etobicoke-viz' && <EtobicokeViz />}
-                    {page === 'north-rustico' && <ComingSoonPage title="North Rustico Flooding (Prince Edward Island)" />}
+                    {page === 'north-rustico' && <NorthRustico />}
+                    {page === 'north-rustico-problem' && <NorthRusticoProblem />}
+                    {page === 'north-rustico-viz' && <NorthRusticoViz />}
                     {page === 'fort-mcmurray' && <ComingSoonPage title="Fort McMurray Wildfire (Alberta)" />}
                     {page === 'team' && <TeamPage onNext={() => goTo('methodology')} onPrev={() => goTo('etobicoke')} />}
                     {page === 'partners' && <PartnersPage />}
