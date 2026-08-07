@@ -891,15 +891,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2.5rem 1.5rem;
+            gap: 2.8rem 2rem;
         }
 
         .tp-card {
-            width: 200px;
+            width: 240px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.85rem;
         }
 
         .tp-avatar {
@@ -908,6 +908,14 @@
             margin-bottom: 0.25rem;
             overflow: hidden;
             background: var(--bg-light);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .tp-card:hover .tp-avatar {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         .tp-avatar img {
@@ -915,7 +923,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            filter: grayscale(10%) contrast(1.05);
+            filter: grayscale(5%) contrast(1.03);
         }
 
         .tp-avatar-fallback {
@@ -925,7 +933,7 @@
             align-items: center;
             justify-content: center;
             font-family: 'DM Sans', sans-serif;
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 500;
             color: var(--white);
         }
@@ -2433,59 +2441,68 @@
         function TeamPage({ onNext, onPrev }) {
             const groups = [
                 {
-                    institution: "University of Toronto", label: "Faculty", accent: "blue", members: [
-                        { name: "Ron Baecker", title: "Emeritus Prof., Computer Science", focus: "Knowledge media design", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Ron_vn8stf.jpg" },
-                        { name: "John Danahy", title: "Emeritus Prof., Landscape Architecture", focus: "3D visualizations for urban planning", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Johny_hso8zu.jpg" },
-                        { name: "Fanny Chevalier", title: "Prof., Computer Science", focus: "Data visualization", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_Fanny_rz1wb7.jpg" },
-                        { name: "Karan Singh", title: "Prof., Computer Science", focus: "3D animation & immersive technologies", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/toronto_Ksingh_ssdo3s.jpg" },
-                        { name: "Steve Engels", title: "Prof., Computer Science", focus: "Computer games", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Steve_Engels_ocwhzf.jpg" },
+                    category: "Project Leads", accent: "blue", members: [
+                        { name: "Ronald Baecker", title: "Dynamic Graphics Project", dept: "Computer Science Department", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Ron_vn8stf.jpg" },
+                        { name: "John Danahy", title: "Centre for Landscape Research", dept: "Department of Landscape Architecture", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Johny_hso8zu.jpg" },
                     ]
                 },
                 {
-                    institution: "University of PEI", label: "Faculty", accent: "green", members: [
-                        { name: "Xander Wang", title: "Prof., Climate Change and Adaptation", focus: "Climate modelling", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/upei_Xander_vj9aah.png" },
+                    category: "Other Research Faculty", accent: "green", members: [
+                        { name: "Julia Baird", title: "Environmental Sustainability Research Centre", institution: "Brock University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786073965/Julia-034_sle5bd.jpg" },
+                        { name: "Mohammed Basheer", title: "Water Resources & Hydrology Group", dept: "Department of Civil and Mineral Engineering", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786076376/Mohammed_Basheer_y6v4tp.png" },
+                        { name: "Maya Desai", title: "Department of Environment Design", institution: "OCAD University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Maya_payhaj.jpg" },
+                        { name: "Steve Engels", title: "Department of Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Steve_Engels_ocwhzf.jpg" },
+                        { name: "Dave Levin", title: "Dynamic Graphics Project", dept: "Computer Science Department", institution: "University of Toronto", photo: "" },
+                        { name: "Alex Marakiakis", title: "Computational Health and Interaction Lab", dept: "Department of Computer Science", institution: "University of Toronto", photo: "" },
+                        { name: "Ali Mazalek", title: "Synaesthetic Media Lab", dept: "RTA School of Media", institution: "Toronto Metropolitan University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786073964/mazalek-headshot_formal_nmlxec.jpg" },
+                        { name: "Angelika Seeschaaf-Verea", title: "Department of Industrial Design", institution: "OCAD University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800619/ocadu_Angelika_Seeschaaf_Veres_xvhm4t.jpg" },
+                        { name: "Xander Wang", title: "Climate Smart Lab", dept: "School of Climate Change and Adaptation", institution: "University of PEI", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/upei_Xander_vj9aah.png" },
+                        { name: "Mike Wotton", title: "Department of Forestry", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_MikeWotton_x4niez.jpg" },
                     ]
                 },
                 {
-                    institution: "VIU and University of Victoria", label: "Faculty", accent: "green", members: [
-                        { name: "Lindsay McCunn", title: "Prof., Psychology", focus: "Environmental psychology", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/viu_Lindsay_ybjyjm.jpg" },
+                    category: "Research Scientist", accent: "green", members: [
+                        { name: "Melanie Wheatley", title: "Ontario Ministry of Natural Resources", institution: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800618/ocadu_Melanie_zcjmue.jpg" },
                     ]
                 },
                 {
-                    institution: "OCAD University", label: "Faculty", accent: "blue", members: [
-                        { name: "Maya Desai", title: "Prof., Environmental Design", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Maya_payhaj.jpg" },
-                        { name: "Angelika Seeschaaf-Veres", title: "Prof., Industrial Design", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800619/ocadu_Angelika_Seeschaaf_Veres_xvhm4t.jpg" },
-                        { name: "Koby Barhad", title: "Prof., Graphic Design", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800618/ocadu_Koby_Barhad_eyehms.jpg" },
+                    category: "Development Leads", accent: "blue", members: [
+                        { name: "Gregory Gismondi", title: "4th year, Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Gregory_ja9mjd.jpg" },
+                        { name: "Jacob Klimczak", title: "Year 1, MSc program, Computer Science", institution: "Cornell Tech", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Jacob_s90gc4.png", photoPos: "top center" },
                     ]
                 },
                 {
-                    institution: "Contributing Research Scientists", label: "", accent: "green", members: [
-                        { name: "Mike Wotton", title: "Dr., Canadian Forest Service", focus: "Fire ignition and behaviour modelling", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_MikeWotton_x4niez.jpg" },
-                        { name: "Melanie Wheatley", title: "Dr., Ont. Ministry Natural Resources", focus: "Aviation Forest Fire & Emergency Services", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800618/ocadu_Melanie_zcjmue.jpg" },
+                    category: "Research Students", accent: "blue", members: [
+                        { name: "Yash Jain", title: "3rd year, Computer Science", institution: "University of Toronto", photo: "" },
+                        { name: "Claire Jaroonjetjumnong", title: "4th year, Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_claire_xpevny.jpg" },
+                        { name: "Napasom Kai-ian", title: "3rd year, Computer Science", institution: "University of Toronto", photo: "" },
+                        { name: "Janna Lim", title: "4th year, Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981228/Image_oj6ub8.jpg" },
+                        { name: "Amber Liu", title: "4th year, Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981226/amber_liu_wbbj0i.jpg" },
+                        { name: "Mohamed Tarek Mohamed", title: "3rd year, Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981479/mohammed_vvkwnf.jpg" },
+                        { name: "Lucie Yang", title: "4th year, Computer Science", institution: "University of Toronto", photo: "" },
                     ]
                 },
                 {
-                    institution: "University of Toronto", label: "Students & Recent Grads", accent: "blue", members: [
-                        { name: "Jacob Klimczak", title: "4th year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Jacob_s90gc4.png", photoPos: "top center" },
-                        { name: "Junyoung Seok", title: "1st year MASc, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_Junyoung_sglz2i.png" },
-                        { name: "Gregory Gismondi", title: "3rd year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Gregory_ja9mjd.jpg" },
-                        { name: "Aria Zheng", title: "3rd year, Comm. Culture, Info & Tech · UTM", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_Aria_hncvxo.png" },
-                        { name: "Amanda Leiva", title: "Recent MASc grad, Mech. & Ind. Engineering", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800619/toronto_Amanda.jpg_prdrsl.png" },
-                        { name: "Lisa Zhong", title: "4th year, Data Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800619/toronto_Lisa_hyiiwq.jpg" },
-                        { name: "Caroline Xu", title: "4th year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_caroline_gkaj3b.jpg" },
-                        { name: "Akshata Kulkarni", title: "3rd year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_Alshata_nmmk7s.jpg" },
-                        { name: "Claire Jaroonjetjumnong", title: "3rd year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_claire_xpevny.jpg" },
-                        { name: "Michael Zhang", title: "3rd year, Math & Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/toronto_Michael_o9j6oa.jpg" },
-                        { name: "Yue Zheng", title: "3rd year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981227/yue_zheng_umb17k.jpg" },
-                        { name: "Amber Liu", title: "3rd year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981226/amber_liu_wbbj0i.jpg" },
-                        { name: "Janna Lim", title: "5th year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981228/Image_oj6ub8.jpg" },
-                        { name: "Mohamed Tarek", title: "3rd year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981479/mohammed_vvkwnf.jpg" },
-                        { name: "Matthew Dahlgren", title: "4th year, Computer Science", focus: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981234/mjt.dahlgren_yq7c74.jpg" },
+                    category: "Webmaster and Designer", accent: "blue", members: [
+                        { name: "Aria Zheng", title: "4th year, Comm., Culture, Inform. and Tech", institution: "UToronto Mississauga", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_Aria_hncvxo.png" },
                     ]
                 },
+                {
+                    category: "Research Assistant", accent: "green", members: [
+                        { name: "Ashish", title: "Research Assistant", institution: "", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786073965/Ashish_Screenshot_2025-06-10_at_1.01.11_PM_pzgw2q.png", photoPos: "center 15%" },
+                    ]
+                },
+                {
+                    category: "Student Alumni", accent: "blue", members: [
+                        { name: "Akshata Kulkarni", title: "Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_Alshata_nmmk7s.jpg" },
+                        { name: "Caroline Xu", title: "Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800617/toronto_caroline_gkaj3b.jpg" },
+                        { name: "Yue Zheng", title: "Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1780981227/yue_zheng_umb17k.jpg" },
+                        { name: "Lisa Zhong", title: "Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800619/toronto_Lisa_hyiiwq.jpg" },
+                    ]
+                }
             ];
             const avatarBg = a => a === 'green' ? 'linear-gradient(140deg,#c8e8dc 0%,#6ab89a 100%)' : 'linear-gradient(140deg,#c8dff0 0%,#5a9ec6 100%)';
-            const initials = n => n.split(' ').slice(0, 2).map(w => w[0]).join('');
+            const initials = n => n.replace(/[^a-zA-Z\s]/g, '').split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
             return (
                 <>
                     <div className="tp-page">
@@ -2496,20 +2513,22 @@
                         {groups.map((g, gi) => (
                             <div key={gi} className="tp-section">
                                 <div className="tp-section-head">
-                                    <span className="tp-section-inst">{g.institution}</span>
-                                    {g.label && <span className="tp-section-label">{g.label}</span>}
+                                    <span className="tp-section-inst">{g.category}</span>
                                 </div>
                                 <div className="tp-grid">
                                     {g.members.map((m, mi) => (
                                         <div key={mi} className="tp-card">
+                                            <div className="tp-avatar">
+                                                {m.photo ? (
+                                                    <img src={m.photo} alt={m.name} style={{ objectPosition: m.photoPos || 'center' }} onError={e => { e.currentTarget.style.display = 'none'; if(e.currentTarget.nextSibling) e.currentTarget.nextSibling.style.display = 'flex'; }} />
+                                                ) : null}
+                                                <div className="tp-avatar-fallback" style={{ background: avatarBg(g.accent), display: m.photo ? 'none' : 'flex' }}>{initials(m.name)}</div>
+                                            </div>
                                             <div className="tp-info">
                                                 <div className="tp-name">{m.name}</div>
-                                                <div className="tp-role">{m.title}</div>
-                                                {m.focus && <div className="tp-focus">{m.focus}</div>}
-                                            </div>
-                                            <div className="tp-avatar">
-                                                <img src={m.photo} alt={m.name} style={{ objectPosition: m.photoPos || 'center' }} onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }} />
-                                                <div className="tp-avatar-fallback" style={{ background: avatarBg(g.accent), display: 'none' }}>{initials(m.name)}</div>
+                                                {m.title && <div className="tp-role">{m.title}</div>}
+                                                {m.dept && <div className="tp-focus">{m.dept}</div>}
+                                                {m.institution && <div className="tp-focus" style={{ fontWeight: '500', color: 'var(--primary)' }}>{m.institution}</div>}
                                             </div>
                                         </div>
                                     ))}
