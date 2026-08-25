@@ -2441,16 +2441,16 @@
         function TeamPage({ onNext, onPrev }) {
             const groups = [
                 {
-                    category: "Project Leads", accent: "blue", members: [
+                    category: "Research Steering Committee", accent: "blue", members: [
                         { name: "Ronald Baecker", title: "Dynamic Graphics Project", dept: "Computer Science Department", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Ron_vn8stf.jpg" },
                         { name: "John Danahy", title: "Centre for Landscape Research", dept: "Department of Landscape Architecture", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800616/toronto_Johny_hso8zu.jpg" },
                         { name: "Alex Mariakakis", title: "Computational Health and Interaction Lab", dept: "Department of Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786347756/mariakakis-alex_v4gww5.jpg" },
                         { name: "Xander Wang", title: "Climate Smart Lab", dept: "School of Climate Change and Adaptation", institution: "University of PEI", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800614/upei_Xander_vj9aah.png" },
+                        { name: "Julia Baird", title: "Environmental Sustainability Research Centre", institution: "Brock University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786073965/Julia-034_sle5bd.jpg" },
                     ]
                 },
                 {
                     category: "Other Research Faculty", accent: "green", members: [
-                        { name: "Julia Baird", title: "Environmental Sustainability Research Centre", institution: "Brock University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786073965/Julia-034_sle5bd.jpg" },
                         { name: "Mohammed Basheer", title: "Water Resources & Hydrology Group", dept: "Department of Civil and Mineral Engineering", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1786076376/Mohammed_Basheer_y6v4tp.png" },
                         { name: "Maya Desai", title: "Department of Environment Design", institution: "OCAD University", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Maya_payhaj.jpg" },
                         { name: "Steve Engels", title: "Department of Computer Science", institution: "University of Toronto", photo: "https://res.cloudinary.com/dd4p37hyq/image/upload/v1773800615/toronto_Steve_Engels_ocwhzf.jpg" },
@@ -2523,7 +2523,7 @@
                                             <div className="tp-info">
                                                 <div className="tp-name">{m.name}</div>
                                                 {m.title && <div className="tp-role">{m.title}</div>}
-                                                {m.dept && <div className="tp-focus">{m.dept}</div>}
+                                                {m.dept && <div className="tp-role">{m.dept}</div>}
                                                 {m.institution && <div className="tp-focus" style={{ fontWeight: '500', color: 'var(--primary)' }}>{m.institution}</div>}
                                             </div>
                                         </div>
