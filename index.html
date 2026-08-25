@@ -2077,9 +2077,9 @@
                             <Block label="Visualizations">
                                 <p>We have generated portrayals of real floods and plausible scenarios predicted by flood models. The figure portrays 10-, 100-, and 350-year (their "return periods" — measures of intensity) floods before and after the river mouth reconstruction completed in 2025.</p>
                                 <ExpandableImage src="https://res.cloudinary.com/dd4p37hyq/image/upload/v1772707919/don_river_year_sde6oe.png" alt="Return periods" style={{ width: '100%', display: 'block' }} containerStyle={{ marginBottom: '1.5rem' }} />
-                                <div style={{ margin: '2rem 0 2.5rem' }}>
-                                    <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls playsInline preload="metadata" style={{ width: '100%', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'don_river_solution_350yr' })} />
-                                    <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', marginBottom: '2.5rem', fontStyle: 'italic' }}>Before & After reconstruction video</p>
+                                <div style={{ margin: '1.75rem 0 2.5rem' }}>
+                                    <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773721733/OLD-NEW_MouthOfDon_350_Year_12s_copy_csufxt.mp4" controls playsInline preload="metadata" style={{ width: '100%', marginBottom: '0.6rem', display: 'block', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'don_river_solution_350yr' })} />
+                                    <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.85rem', fontStyle: 'italic', margin: 0 }}>Before & After reconstruction video</p>
                                 </div>
                                 <p>The Port Lands at the mouth of the river can now withstand major storms. There is still flooding to the east, which is being addressed by a subsequent flood mitigation project now underway (<a className="text-link ext" href="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2021/09/17175237/BEFP-Final-Class-EA-Report-August-2021_with-exec-summary.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'befp_report' })}>BEFP Final Class EA Report</a>).</p>
                             </Block>
@@ -2237,14 +2237,14 @@
                                 </div>
                             </Block>
                             <Block label="Flood Models & Videos">
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', margin: '1.5rem 0' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
                                     <div>
-                                        <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', fontWeight: '600', marginBottom: '1rem', textAlign: 'center' }}>350-Year LEC Flood 2D</h3>
                                         <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632304/350-Year-LEC-Flood-3h_2D_copy_qszoz4.mp4" controls playsInline preload="metadata" style={{ width: '55%', maxWidth: '480px', display: 'block', margin: '0 auto', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'etobicoke_350yr_2d' })} />
+                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>350-Year LEC Flood 2D</p>
                                     </div>
                                     <div>
-                                        <h3 style={{ fontSize: '1.3rem', color: 'var(--primary)', fontWeight: '600', marginBottom: '1rem', textAlign: 'center' }}>100-Year LEC Flyover 3D</h3>
                                         <video src="https://res.cloudinary.com/dd4p37hyq/video/upload/v1773632306/100_Year_LEC_Flyover-3D_copy_mgftbb.mp4" controls playsInline preload="metadata" style={{ width: '100%', boxShadow: 'var(--shadow-md)', backgroundColor: '#000' }} onPlay={() => trackEvent('case_video_play_clicked', { location: 'etobicoke_100yr_3d' })} />
+                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', marginTop: '0.75rem', fontStyle: 'italic' }}>100-Year LEC Flyover 3D</p>
                                     </div>
                                 </div>
                             </Block>
@@ -2303,7 +2303,7 @@
                             </Block>
 
                             <Block label="Storm Footage">
-                                <p style={{ marginBottom: '2rem', fontSize: '1.1rem' }}>Here is one video taken during an intense period during the storm.</p>
+                                <p style={{ marginBottom: '1.5rem', fontSize: '1.1rem' }}>Here is one video taken during an intense period during the storm.</p>
                                 <div style={{ 
                                     position: 'relative', 
                                     paddingBottom: '56.25%', 
@@ -2403,14 +2403,9 @@
                                 </div>
                                 
                                 {/* Video Description above player */}
-                                <div style={{ marginTop: '1.25rem', marginBottom: '2rem' }}>
-                                    <h3 style={{ fontSize: '1.35rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '0.75rem' }}>
-                                        {videos[activeVid].title}
-                                    </h3>
-                                    <p style={{ color: 'var(--ink-mid)', fontSize: '1.15rem', lineHeight: '1.85', margin: 0 }}>
-                                        {videos[activeVid].desc}
-                                    </p>
-                                </div>
+                                <p style={{ color: 'var(--ink)', fontSize: '1.15rem', lineHeight: '1.85', marginBottom: '1.5rem' }}>
+                                    {videos[activeVid].desc}
+                                </p>
                                 
                                 {/* Video Frame - Large Full-width */}
                                 <div style={{
