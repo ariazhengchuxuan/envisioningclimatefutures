@@ -44,6 +44,8 @@ The website is actively monitored using two robust analytics solutions:
 
 Current modules featured on the platform:
 - **Don River Flooding (Toronto)**: Problem, Solutions, Visualizations
-- **Etobicoke Creek Flooding (Mississauga)**: Problem, Solutions, Visualizations
+- **Little Etobicoke Creek Flooding (Mississauga)**: Problem, Solutions, Visualizations
+- **North Rustico Flooding (PEI)**: Hurricane Fiona Case Study, Storm Footage, Visualizations
+- **Coastal-Inland Flood Simulator (UPEI)**: Physical wave & rain simulator testing modular flood mitigation measures
+- **Virtual Water Futures (Brock)**: Augmented Reality immersion at Lakeside Park, St. Catharines
 - **Fort McMurray Wildfire**: Modelling Wildfires *(Coming Soon)*
-- **North Rustico (PEI)**: Coastal Flooding *(Coming Soon)*

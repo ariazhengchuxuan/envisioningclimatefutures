@@ -1441,7 +1441,7 @@
             );
         }
 
-            const NAV_EVENTS = {'home':'nav_home_clicked','climate-change':'nav_home_clicked','methodology':'nav_methodology_clicked','methodology-detail':'nav_methodology_clicked','flood-modelling':'nav_methodology_clicked','wildfire-modelling':'nav_methodology_clicked','team':'nav_team_clicked','partners':'nav_team_clicked','sponsors':'nav_team_clicked','events':'nav_team_clicked','contact':'nav_contact_clicked','don-river':'case_card_don_river_clicked','don-river-problem':'case_card_don_river_clicked','don-river-solution':'case_card_don_river_clicked','don-river-viz':'case_card_don_river_clicked','etobicoke':'case_card_etobicoke_clicked','etobicoke-problem':'case_card_etobicoke_clicked','etobicoke-solution':'case_card_etobicoke_clicked','etobicoke-viz':'case_card_etobicoke_clicked','fort-mcmurray':'case_card_wildfire_clicked','north-rustico':'case_card_coastal_clicked'};
+            const NAV_EVENTS = {'home':'nav_home_clicked','climate-change':'nav_home_clicked','methodology':'nav_methodology_clicked','methodology-detail':'nav_methodology_clicked','flood-modelling':'nav_methodology_clicked','wildfire-modelling':'nav_methodology_clicked','team':'nav_team_clicked','partners':'nav_team_clicked','sponsors':'nav_team_clicked','events':'nav_team_clicked','contact':'nav_contact_clicked','don-river':'case_card_don_river_clicked','don-river-problem':'case_card_don_river_clicked','don-river-solution':'case_card_don_river_clicked','don-river-viz':'case_card_don_river_clicked','etobicoke':'case_card_etobicoke_clicked','etobicoke-problem':'case_card_etobicoke_clicked','etobicoke-solution':'case_card_etobicoke_clicked','etobicoke-viz':'case_card_etobicoke_clicked','north-rustico':'case_card_coastal_clicked','north-rustico-problem':'case_card_coastal_clicked','north-rustico-viz':'case_card_coastal_clicked','upei-simulator':'case_card_upei_simulator_clicked','brock-water-futures':'case_card_brock_water_futures_clicked','fort-mcmurray':'case_card_wildfire_clicked'};
 
         function SubNav({ items, active }) {
             return (
@@ -1525,14 +1525,16 @@
                                                 <a className="nav-dropdown-item" onClick={() => navigate('don-river-viz')} data-track="nav_don_river_viz">Visualizations</a>
                                             </div>
                                         </div>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('upei-simulator')} data-track="nav_upei_simulator">Coastal-Inland Flood Simulator (UPEI)</a>
                                         <div className="nav-sub-item">
-                                            <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')} data-track="nav_etobicoke">Etobicoke Creek flooding (Mississauga)</a>
+                                            <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')} data-track="nav_etobicoke">Little Etobicoke Creek Flooding (Toronto)</a>
                                             <div className="nav-sub-dropdown">
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke_problem">The Problem</a>
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-solution')} data-track="nav_etobicoke_solution">A Proposed Solution</a>
                                                 <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">Visualizations</a>
                                             </div>
                                         </div>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('brock-water-futures')} data-track="nav_brock_water_futures">Virtual Water Futures (Brock)</a>
                                         <div className="nav-sub-item">
                                             <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
                                             <div className="nav-sub-dropdown">
@@ -1583,10 +1585,12 @@
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-problem')} data-track="nav_don_river_problem">↳ The Problem</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-solution')} data-track="nav_don_river_solution">↳ A Proposed Solution</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('don-river-viz')} data-track="nav_don_river_viz">↳ Visualizations</a>
-                                        <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')} data-track="nav_etobicoke">Etobicoke Creek flooding (Mississauga)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('upei-simulator')} data-track="nav_upei_simulator">Coastal-Inland Flood Simulator (UPEI)</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('etobicoke')} data-track="nav_etobicoke">Little Etobicoke Creek Flooding (Toronto)</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke_problem">↳ The Problem</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-solution')} data-track="nav_etobicoke_solution">↳ A Proposed Solution</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">↳ Visualizations</a>
+                                        <a className="nav-dropdown-item" onClick={() => navigate('brock-water-futures')} data-track="nav_brock_water_futures">Virtual Water Futures (Brock)</a>
                                         <a className="nav-dropdown-item" onClick={() => navigate('north-rustico')} data-track="nav_north_rustico">North Rustico flooding (PEI)</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('north-rustico-problem')} data-track="nav_north_rustico_problem">↳ The Problem</a>
                                         <a className="nav-dropdown-item" style={{ paddingLeft: '3rem' }} onClick={() => navigate('north-rustico-viz')} data-track="nav_north_rustico_viz">↳ Visualizations</a>
@@ -2085,7 +2089,7 @@
                                 <p>The Port Lands at the mouth of the river can now withstand major storms. There is still flooding to the east, which is being addressed by a subsequent flood mitigation project now underway (<a className="text-link ext" href="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2021/09/17175237/BEFP-Final-Class-EA-Report-August-2021_with-exec-summary.pdf" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('external_link_clicked', { url: 'befp_report' })}>BEFP Final Class EA Report</a>).</p>
                             </Block>
                         </div>
-                        <NavRow prev={{ href: 'don-river-solution', label: 'A Proposed Solution' }} next={{ href: 'etobicoke', label: 'Next Case: Etobicoke Creek' }} />
+                        <NavRow prev={{ href: 'don-river-solution', label: 'A Proposed Solution' }} next={{ href: 'upei-simulator', label: 'Next: Coastal-Inland Flood Simulator (UPEI)' }} />
                     </div>
                     <Footer />
                 </>
@@ -2250,7 +2254,7 @@
                                 </div>
                             </Block>
                         </div>
-                        <NavRow prev={{ href: 'etobicoke-solution', label: 'A Proposed Solution' }} />
+                        <NavRow prev={{ href: 'etobicoke-solution', label: 'A Proposed Solution' }} next={{ href: 'brock-water-futures', label: 'Next: Virtual Water Futures (Brock)' }} />
                     </div>
                     <Footer />
                 </>
@@ -2431,7 +2435,166 @@
                                 </div>
                             </Block>
                         </div>
-                        <NavRow prev={{ href: 'north-rustico-problem', label: 'The Problem' }} />
+                        <NavRow prev={{ href: 'north-rustico-problem', label: 'The Problem' }} next={{ href: 'upei-simulator', label: 'Coastal-Inland Flood Simulator' }} />
+                    </div>
+                    <Footer />
+                </>
+            );
+        }
+
+        /* ─── UPEI SIMULATOR ─── */
+        function UpeiSimulator() {
+            return (
+                <>
+                    <div className="content-page">
+                        <div className="content-page-header">
+                            <h1>Coastal-Inland Flood Simulator (UPEI)</h1>
+                            <div className="page-location"><span>University of Prince Edward Island</span></div>
+                        </div>
+                        <div className="c-group">
+                            <Block label="The Problem">
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)' }}>
+                                    Coastal communities on PEI face a real dilemma when it comes to protecting their shoreline. Nature-based solutions like restored dunes and living shorelines, and engineered options like seawalls and breakwaters, all come with real costs and real risks if they fail. But testing them against an actual hurricane means waiting for one to arrive, and by then it's too late to change course.
+                                </p>
+                            </Block>
+                            <Block label="The Solution">
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)' }}>
+                                    Physical models have always done something screens can't quite replicate. Watching water move, seeing a shoreline give way, feeling the scale of a storm surge in real space builds an understanding that sticks in a different way than a chart or a digital simulation.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginTop: '1rem' }}>
+                                    The coastal-inland flood simulator lets researchers recreate storm surge and flooding under controlled conditions. Developed by the Climate Smart Lab under Dr. Xander Wang, the flood simulator will play a critical role in advancing the transition from climate emergency declaration to real climate actions.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginTop: '1rem' }}>
+                                    It features two main mechanisms. First, a wave machine creates adjustable waves to simulate storm tides. These waves crash onto a coast made up of modular obstacles such as plants, stones, and barricades to simulate flood mitigation measures. Second, sprinklers spray the closed environment from above, simulating inland flooding from rainfall. Together, these mechanisms capture the flood risk during extreme weather events.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginTop: '1rem' }}>
+                                    The simulator lives inside the CCCCA, a research facility built with support from the governments of Canada and Prince Edward Island alongside UPEI, and designed to give researchers direct, ongoing access to the wetlands, forests, and coastal habitats it studies. Rather than modelling those environments only on screen, the Centre lets the Climate Smart Lab test solutions on a physical scale before recommending them for the real coast.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginTop: '1rem' }}>
+                                    On August 18, 2025, the Climate Smart Lab officially unveiled the simulator to researchers, government officials, and the public. The team will use it to test how various coastal protection measures hold up against modelled storm surge and inland flooding, with the goal of finding sustainable, evidence-based ways to protect the Island from erosion and flooding as the climate continues to change.
+                                </p>
+                                <div style={{ margin: '2rem 0 1.5rem' }}>
+                                    <ImgCard 
+                                        src="assets/flood-simulator.jpg" 
+                                        alt="Coastal-Inland Flood Simulator" 
+                                        caption="Coastal-Inland Flood Simulator. Coast with interchangeable plant, stone, and barricade modules to simulate flood mitigation measures" 
+                                    />
+                                </div>
+                                <div style={{
+                                    width: '100%',
+                                    borderRadius: '12px',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.15)',
+                                    border: '1px solid rgba(0,0,0,0.1)',
+                                    backgroundColor: '#000',
+                                    marginBottom: '1rem'
+                                }}>
+                                    <video
+                                        src="assets/Simulator_Intro_Video.mp4"
+                                        controls
+                                        playsInline
+                                        preload="metadata"
+                                        style={{ width: '100%', display: 'block', backgroundColor: '#000' }}
+                                        onPlay={() => trackEvent('case_video_play_clicked', { location: 'upei_simulator_intro' })}
+                                    />
+                                </div>
+                            </Block>
+                        </div>
+                        <NavRow prev={{ href: 'don-river-viz', label: 'Don River' }} next={{ href: 'etobicoke', label: 'Little Etobicoke Creek' }} />
+                    </div>
+                    <Footer />
+                </>
+            );
+        }
+
+        /* ─── VIRTUAL WATER FUTURES (BROCK) ─── */
+        function BrockWaterFutures() {
+            return (
+                <>
+                    <div className="content-page">
+                        <div className="content-page-header">
+                            <h1>Virtual Water Futures (Brock)</h1>
+                            <div className="page-location"><span>Brock University</span></div>
+                        </div>
+                        <div className="c-group">
+                            <Block label="The Problem">
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)' }}>
+                                    A major obstacle to climate action is that many of the worst effects of climate change, including flooding and shoreline erosion, are happening in geographically distant places or will not happen for several decades. This disconnect makes it easy to acknowledge abstractly while creating no urgency to act on it personally. Research on climate communication consistently finds that abstract, far-off risks don't move people the way immediate, personal ones do. Telling residents that "sea levels will rise" or "storms will intensify" rarely produces the same response as seeing a specific, familiar place visibly affected. Without that concrete, personal connection, pro-environmental beliefs tend to stay just that: beliefs, not actions.
+                                </p>
+                            </Block>
+                            <Block label="The Solution">
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)' }}>
+                                    We set out to harness the power of augmented reality to bring climate change home. Rather than describe a flooded future, we built a tool that lets people stand in a beloved local landscape and see it underwater. Lakeside Park, a well-beloved St. Catharines landmark, was chosen precisely because it isn't abstract. Its century-old carousel, pier, and lighthouse are part of the community's shared identity, which makes a flooded version of that same space far harder to look away from than a generic warning ever could be.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginTop: '1rem' }}>
+                                    This project guides participants to a specific spot in Lakeside Park, where a tablet app shows that same view transformed in real time by augmented reality: the beach submerged, the pier battered, the landscape reshaped by flooding, erosion, and storm surges. The 2050 flood scenario isn't speculative; it is based on a hydroclimate model run under climate action and inaction assumptions, combined with storm surge and precipitation projections, to arrive at a scenario that is genuinely plausible for the park within about 25 years.
+                                </p>
+                                <p style={{ fontSize: '1.15rem', lineHeight: '1.85', color: 'var(--ink)', marginTop: '1rem' }}>
+                                    The central idea is that immersing someone in a recognizable environment will build empathy for people already affected by climate change elsewhere, shifting their beliefs and willingness to act. The research team is measuring changes in empathy, climate belief, and behavioural intentions to test whether AR can scale as a tool for building real climate engagement.
+                                </p>
+                            </Block>
+                            <Block label="Visualizations of flooding around Lakeside Park">
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', margin: '1rem 0 2rem' }}>
+                                    <ImgCard 
+                                        src="assets/lakeside-2026.jpg" 
+                                        alt="Current situation (2026)" 
+                                        caption="Current situation (2026)" 
+                                    />
+                                    <ImgCard 
+                                        src="assets/lakeside-2050.jpg" 
+                                        alt="Plausible future situation (2050)" 
+                                        caption="Plausible future situation (2050)" 
+                                    />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                                    <div>
+                                        <div style={{
+                                            width: '100%',
+                                            borderRadius: '12px',
+                                            overflow: 'hidden',
+                                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.15)',
+                                            border: '1px solid rgba(0,0,0,0.1)',
+                                            backgroundColor: '#000',
+                                            marginBottom: '0.75rem'
+                                        }}>
+                                            <video
+                                                src="assets/brock-virtual-water-futures.mp4"
+                                                controls
+                                                playsInline
+                                                preload="metadata"
+                                                style={{ width: '100%', display: 'block', backgroundColor: '#000' }}
+                                                onPlay={() => trackEvent('case_video_play_clicked', { location: 'brock_ar_recording' })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style={{
+                                            position: 'relative',
+                                            paddingBottom: '56.25%',
+                                            height: 0,
+                                            overflow: 'hidden',
+                                            borderRadius: '12px',
+                                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.15)',
+                                            background: '#000',
+                                            border: '1px solid rgba(0,0,0,0.1)',
+                                            marginBottom: '0.75rem'
+                                        }}>
+                                            <iframe
+                                                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                                                src="https://www.youtube.com/embed/Ifn9NbaxDkM"
+                                                title="Brock News coverage"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            />
+                                        </div>
+                                        <p style={{ textAlign: 'center', color: 'var(--text-medium)', fontSize: '0.9rem', margin: 0, fontStyle: 'italic' }}>
+                                            Brock News coverage
+                                        </p>
+                                    </div>
+                                </div>
+                            </Block>
+                        </div>
+                        <NavRow prev={{ href: 'etobicoke-viz', label: 'Little Etobicoke Creek' }} next={{ href: 'north-rustico', label: 'North Rustico' }} />
                     </div>
                     <Footer />
                 </>
@@ -2728,6 +2891,8 @@
                     {page === 'north-rustico' && <NorthRustico />}
                     {page === 'north-rustico-problem' && <NorthRusticoProblem />}
                     {page === 'north-rustico-viz' && <NorthRusticoViz />}
+                    {page === 'upei-simulator' && <UpeiSimulator />}
+                    {page === 'brock-water-futures' && <BrockWaterFutures />}
                     {page === 'fort-mcmurray' && <ComingSoonPage title="Fort McMurray Wildfire (Alberta)" />}
                     {page === 'team' && <TeamPage onNext={() => goTo('methodology')} onPrev={() => goTo('etobicoke')} />}
                     {page === 'partners' && <PartnersPage />}
