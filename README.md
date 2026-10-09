@@ -16,6 +16,8 @@ This project is built using a lightweight, no-build-step architecture. It levera
 - **Hosting / Deployment**: [Vercel](https://vercel.com/)
 - **Analytics**: Vercel Web Analytics & OpenPanel
 
+> 📘 **Developer & Handover Guide:** For comprehensive technical documentation, code structure maps, and step-by-step instructions on how to add new research projects, team members, and media assets, please refer to [TECHNICAL_DOCUMENTATION.md](file:///Users/ariazhengchuxuan/project%20website%20test/TECHNICAL_DOCUMENTATION.md).
+
 ## 🚀 Getting Started (Local Development)
 
 Because this project uses React via a CDN and Babel Standalone, there is no need for `npm install` or `npm run dev`.
@@ -43,9 +45,12 @@ The website is actively monitored using two robust analytics solutions:
 ## 🤝 Case Studies & Features
 
 Current modules featured on the platform:
-- **Don River Flooding (Toronto)**: Problem, Solutions, Visualizations
-- **Little Etobicoke Creek Flooding (Mississauga)**: Problem, Solutions, Visualizations
-- **North Rustico Flooding (PEI)**: Hurricane Fiona Case Study, Storm Footage, Visualizations
-- **Coastal-Inland Flood Simulator (UPEI)**: Physical wave & rain simulator testing modular flood mitigation measures
-- **Virtual Water Futures (Brock)**: Augmented Reality immersion at Lakeside Park, St. Catharines
-- **Fort McMurray Wildfire**: Modelling Wildfires *(Coming Soon)*
+1. **Project 1: Climate Hazard & Risk Information System (UPEI)**: Interactive flood & shoreline erosion mapping across PEI
+2. **Project 2: Coastal-Inland Flood Simulator (UPEI)**: Physical wave & rain simulator testing modular flood mitigation measures
+3. **Project 3: Grand Ethiopian Renaissance Dam (Toronto)**: Multi-objective adaptive management and cooperation modelling across the Nile basin
+4. **Project 4: Virtual Water Futures (Brock)**: Augmented Reality immersion at Lakeside Park, St. Catharines
+5. **Project 5: Watershed – Flood Game (Toronto)**: Interactive 6-level educational video game exploring flood preparedness and community adaptation
+6. **Project 6: Flooding of the Don River (Toronto)**: Problem, Solutions, and Port Lands reconstruction visualizations
+7. **Project 7: Little Etobicoke Creek Flooding (Toronto / Mississauga)**: Destructive floods, proposed riverbed improvements, and visualizations
+8. **Project 8: North Rustico Flooding, PEI (Toronto)**: Hurricane Fiona Case Study, Storm Footage, and Visualizations
+9. **Project 9: Fort McMurray Wildfire (Alberta / Toronto)**: Wildfire progression, extreme conditions, and landscape mitigation *(Coming Soon)*
