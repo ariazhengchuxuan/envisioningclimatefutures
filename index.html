@@ -1282,30 +1282,145 @@
             }
 
             .mob-dropdown {
-                background: rgba(0, 0, 0, 0.2);
+                background: rgba(0, 0, 0, 0.25);
                 overflow: hidden;
                 animation: menuSlideDown 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+                padding: 0.35rem 0;
             }
 
             .mob-dropdown .nav-dropdown-item {
-                padding: 0.6rem 1.5rem 0.6rem 2.5rem;
-                font-size: 0.72rem;
+                padding: 0.75rem 1.5rem 0.75rem 2.2rem;
+                font-size: 0.9rem;
                 border-radius: 0;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                color: rgba(255, 255, 255, 0.75);
-                display: block;
+                color: rgba(255, 255, 255, 0.88);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
                 cursor: pointer;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                font-weight: 600;
+                text-transform: none;
+                letter-spacing: 0.01em;
+                font-weight: 500;
+                font-family: 'DM Sans', sans-serif;
                 transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+            }
+
+            .mob-dropdown .nav-dropdown-item:last-child {
+                border-bottom: none;
             }
 
             .mob-dropdown .nav-dropdown-item:hover,
             .mob-dropdown .nav-dropdown-item:active {
-                background: rgba(255, 255, 255, 0.09);
-                color: white;
-                padding-left: 2.9rem;
+                background: rgba(255, 255, 255, 0.08);
+                color: #ffffff;
+                padding-left: 2.5rem;
+            }
+
+            .mob-projects-menu {
+                padding: 0.65rem 0.85rem 0.85rem !important;
+                display: flex;
+                flex-direction: column;
+                gap: 0.55rem;
+                background: rgba(0, 0, 0, 0.32) !important;
+            }
+
+            .mob-project-card {
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                padding: 0.8rem 0.95rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.35rem;
+                cursor: pointer;
+                text-align: left;
+                transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                -webkit-tap-highlight-color: transparent;
+                text-decoration: none;
+            }
+
+            .mob-project-card:hover,
+            .mob-project-card:active {
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(181, 74, 22, 0.55);
+                transform: translateX(4px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            }
+
+            .mob-project-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+            }
+
+            .mob-proj-badge {
+                background: rgba(181, 74, 22, 0.22);
+                color: #ff9e6c;
+                border: 1px solid rgba(181, 74, 22, 0.45);
+                font-size: 0.7rem;
+                font-weight: 700;
+                padding: 0.18rem 0.5rem;
+                border-radius: 5px;
+                letter-spacing: 0.03em;
+                white-space: nowrap;
+                flex-shrink: 0;
+                text-transform: uppercase;
+            }
+
+            .mob-project-card:hover .mob-proj-badge,
+            .mob-project-card:active .mob-proj-badge {
+                background: var(--accent);
+                color: #ffffff;
+                border-color: var(--accent);
+            }
+
+            .mob-proj-loc {
+                font-size: 0.74rem;
+                color: rgba(255, 255, 255, 0.65);
+                font-weight: 400;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-transform: none;
+                letter-spacing: 0.01em;
+            }
+
+            .mob-proj-main {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.6rem;
+            }
+
+            .mob-proj-title {
+                font-family: 'DM Sans', sans-serif;
+                font-size: 0.92rem;
+                font-weight: 600;
+                color: #ffffff;
+                line-height: 1.35;
+                text-transform: none;
+                letter-spacing: 0.01em;
+                transition: color 0.18s ease;
+            }
+
+            .mob-project-card:hover .mob-proj-title,
+            .mob-project-card:active .mob-proj-title {
+                color: #ffb088;
+            }
+
+            .mob-proj-arrow {
+                color: rgba(255, 255, 255, 0.35);
+                font-size: 0.95rem;
+                font-weight: 700;
+                flex-shrink: 0;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+
+            .mob-project-card:hover .mob-proj-arrow,
+            .mob-project-card:active .mob-proj-arrow {
+                color: #ff9e6c;
+                transform: translateX(3px);
             }
         }
 
@@ -1315,54 +1430,66 @@
             }
 
             .c-label {
-                padding: 1.25rem 1.5rem 0.75rem;
+                padding: 1.25rem 1.25rem 0.5rem;
                 border-right: none;
                 border-bottom: 1px solid var(--border);
+                font-size: 1.15rem;
             }
 
             .c-content {
-                padding: 1.25rem 1.5rem;
+                padding: 1rem 1.25rem 1.5rem;
             }
 
             .page-project-badge {
-                font-size: 1.25rem;
+                font-size: 1.2rem;
                 margin-bottom: 0.15rem;
             }
 
             .content-page h1 {
-                font-size: 2rem;
+                font-size: clamp(1.8rem, 6vw, 2.3rem);
             }
 
             .content-page {
-                padding: 80px 1rem 3rem;
+                padding: 72px 0 3rem;
             }
 
             .content-page-header {
-                padding: 2.25rem 1.25rem 2rem;
-                margin-left: -1rem;
-                margin-right: -1rem;
-                width: calc(100% + 2rem);
-                left: auto;
-                right: auto;
-                margin-bottom: 1.75rem;
-                }
+                padding: 2.75rem 1.25rem 2.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .content-page > :not(.content-page-header) {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            .nav-button {
+                width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
         }
 
         @media(max-width:800px) {
-            .tp-card {
-                width: 155px;
-            }
             .tp-grid {
-                gap: 2rem 1.25rem;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 1.5rem 1rem;
+            }
+            .tp-card {
+                width: 100%;
             }
         }
 
         @media(max-width:500px) {
-            .tp-card {
-                width: calc(50% - 0.75rem);
-            }
             .tp-grid {
-                gap: 1.5rem 0.9rem;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.25rem 0.75rem;
             }
         }
     </style>
@@ -1820,74 +1947,105 @@
                             <div className="nav-item">
                                 <span className="nav-link mob-section" onClick={() => toggleSection('examples')}>Our Work <Arr /></span>
                                 {openSection === 'examples' && (
-                                    <div className="mob-dropdown">
-                                        <a className="nav-dropdown-item" onClick={() => navigate('chris')} data-track="nav_chris">
-                                            <span className="nav-proj-badge">Project 1</span>
-                                            <span className="nav-proj-title">Climate Hazard & Risk Information System <span className="nav-proj-loc">(UPEI)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('chris', 'chris-problem')} data-track="nav_chris_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('chris', 'chris-solution')} data-track="nav_chris_solution">↳ The Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('chris', 'chris-viz')} data-track="nav_chris_viz">↳ Visualizations</a>
+                                    <div className="mob-dropdown mob-projects-menu">
+                                        <div className="mob-project-card" onClick={() => navigate('chris')} data-track="nav_chris">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 1</span>
+                                                <span className="mob-proj-loc">UPEI</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Climate Hazard & Risk Information System</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('upei-simulator')} data-track="nav_upei_simulator">
-                                            <span className="nav-proj-badge">Project 2</span>
-                                            <span className="nav-proj-title">Coastal-Inland Flood Simulator <span className="nav-proj-loc">(UPEI)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('upei-simulator', 'upei-problem')} data-track="nav_upei_simulator_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('upei-simulator', 'upei-solution')} data-track="nav_upei_simulator_solution">↳ The Solution</a>
+                                        <div className="mob-project-card" onClick={() => navigate('upei-simulator')} data-track="nav_upei_simulator">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 2</span>
+                                                <span className="mob-proj-loc">Climate Smart Lab, UPEI</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Coastal-Inland Flood Simulator</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('gerd')} data-track="nav_gerd">
-                                            <span className="nav-proj-badge">Project 3</span>
-                                            <span className="nav-proj-title">Grand Ethiopian Renaissance Dam <span className="nav-proj-loc">(Toronto)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('gerd', 'gerd-problem')} data-track="nav_gerd_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('gerd', 'gerd-solution')} data-track="nav_gerd_solution">↳ The Solution</a>
+                                        <div className="mob-project-card" onClick={() => navigate('gerd')} data-track="nav_gerd">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 3</span>
+                                                <span className="mob-proj-loc">University of Toronto</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Grand Ethiopian Renaissance Dam</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('brock-water-futures')} data-track="nav_brock_water_futures">
-                                            <span className="nav-proj-badge">Project 4</span>
-                                            <span className="nav-proj-title">Virtual Water Futures <span className="nav-proj-loc">(Brock)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('brock-water-futures', 'brock-problem')} data-track="nav_brock_water_futures_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('brock-water-futures', 'brock-solution')} data-track="nav_brock_water_futures_solution">↳ The Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('brock-water-futures', 'brock-viz')} data-track="nav_brock_water_futures_viz">↳ Visualizations</a>
+                                        <div className="mob-project-card" onClick={() => navigate('brock-water-futures')} data-track="nav_brock_water_futures">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 4</span>
+                                                <span className="mob-proj-loc">Brock University</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Virtual Water Futures (AR)</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('watershed-game')} data-track="nav_watershed_game">
-                                            <span className="nav-proj-badge">Project 5</span>
-                                            <span className="nav-proj-title">Watershed: An Educational Flood Game <span className="nav-proj-loc">(Toronto)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('watershed-game', 'game-problem')} data-track="nav_watershed_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('watershed-game', 'game-solution')} data-track="nav_watershed_solution">↳ The Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('watershed-game', 'game-levels')} data-track="nav_watershed_levels">↳ Visualizations</a>
+                                        <div className="mob-project-card" onClick={() => navigate('watershed-game')} data-track="nav_watershed_game">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 5</span>
+                                                <span className="mob-proj-loc">University of Toronto</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Watershed: An Educational Flood Game</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('don-river-problem')} data-track="nav_don_river">
-                                            <span className="nav-proj-badge">Project 6</span>
-                                            <span className="nav-proj-title">Flooding of the Don River <span className="nav-proj-loc">(Toronto)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('don-river-problem')} data-track="nav_don_river_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('don-river-solution')} data-track="nav_don_river_solution">↳ The Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('don-river-viz')} data-track="nav_don_river_viz">↳ Visualizations</a>
+                                        <div className="mob-project-card" onClick={() => navigate('don-river-problem')} data-track="nav_don_river">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 6</span>
+                                                <span className="mob-proj-loc">Toronto</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Flooding of the Don River</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke">
-                                            <span className="nav-proj-badge">Project 7</span>
-                                            <span className="nav-proj-title">Little Etobicoke Creek Flooding <span className="nav-proj-loc">(Toronto)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('etobicoke-solution')} data-track="nav_etobicoke_solution">↳ The Solution</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('etobicoke-viz')} data-track="nav_etobicoke_viz">↳ Visualizations</a>
+                                        <div className="mob-project-card" onClick={() => navigate('etobicoke-problem')} data-track="nav_etobicoke">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 7</span>
+                                                <span className="mob-proj-loc">Mississauga</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Little Etobicoke Creek Flooding</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('north-rustico-problem')} data-track="nav_north_rustico">
-                                            <span className="nav-proj-badge">Project 8</span>
-                                            <span className="nav-proj-title">North Rustico Flooding, PEI <span className="nav-proj-loc">(Toronto)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('north-rustico-problem')} data-track="nav_north_rustico_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('north-rustico-viz')} data-track="nav_north_rustico_solution">↳ The Solution</a>
+                                        <div className="mob-project-card" onClick={() => navigate('north-rustico-problem')} data-track="nav_north_rustico">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 8</span>
+                                                <span className="mob-proj-loc">PEI</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">North Rustico Flooding, PEI</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
 
-                                        <a className="nav-dropdown-item" onClick={() => navigate('fort-mcmurray')} data-track="nav_fort_mcmurray">
-                                            <span className="nav-proj-badge">Project 9</span>
-                                            <span className="nav-proj-title">Fort McMurray <span className="nav-proj-loc">(Toronto)</span></span>
-                                        </a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('fort-mcmurray', 'mcmurray-problem')} data-track="nav_fort_mcmurray_problem">↳ The Problem</a>
-                                        <a className="nav-dropdown-item" style={{ paddingLeft: '2.5rem' }} onClick={() => navigate('fort-mcmurray', 'mcmurray-solution')} data-track="nav_fort_mcmurray_solution">↳ The Solution</a>
+                                        <div className="mob-project-card" onClick={() => navigate('fort-mcmurray')} data-track="nav_fort_mcmurray">
+                                            <div className="mob-project-top">
+                                                <span className="mob-proj-badge">Project 9</span>
+                                                <span className="mob-proj-loc">Alberta</span>
+                                            </div>
+                                            <div className="mob-proj-main">
+                                                <span className="mob-proj-title">Fort McMurray Wildfire</span>
+                                                <span className="mob-proj-arrow">→</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                             </div>
