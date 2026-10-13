@@ -45,12 +45,12 @@ The website is actively monitored using two robust analytics solutions:
 ## 🤝 Case Studies & Features
 
 Current modules featured on the platform:
-1. **Project 1: Climate Hazard & Risk Information System (UPEI)**: Interactive flood & shoreline erosion mapping across PEI
-2. **Project 2: Coastal-Inland Flood Simulator (UPEI)**: Physical wave & rain simulator testing modular flood mitigation measures
-3. **Project 3: Grand Ethiopian Renaissance Dam (Toronto)**: Multi-objective adaptive management and cooperation modelling across the Nile basin
-4. **Project 4: Virtual Water Futures (Brock)**: Augmented Reality immersion at Lakeside Park, St. Catharines
-5. **Project 5: Watershed – Flood Game (Toronto)**: Interactive 6-level educational video game exploring flood preparedness and community adaptation
-6. **Project 6: Flooding of the Don River (Toronto)**: Problem, Solutions, and Port Lands reconstruction visualizations
-7. **Project 7: Little Etobicoke Creek Flooding (Toronto / Mississauga)**: Destructive floods, proposed riverbed improvements, and visualizations
-8. **Project 8: North Rustico Flooding, PEI (Toronto)**: Hurricane Fiona Case Study, Storm Footage, and Visualizations
-9. **Project 9: Fort McMurray Wildfire (Alberta / Toronto)**: Wildfire progression, extreme conditions, and landscape mitigation *(Coming Soon)*
+- Climate Hazard & Risk Information System, PEI (UPEI)
+- Coastal-Inland Flood Simulator, PEI (UPEI)
+- Flooding of the Don River, Toronto (University of Toronto)
+- Flooding of Little Etobicoke Creek, Mississauga (University of Toronto)
+- Flooding of North Rustico PEI in Hurricane Fiona, 2022 (University of Toronto)
+- Fort McMurray AB Wildfire, 2016 (University of Toronto)
+- Grand Ethiopian Renaissance Dam (University of Toronto)
+- Virtual Water Futures, Saint Catherines ON (Brock)
+- Watershed: An Educational Flooding Game (University of Toronto)
