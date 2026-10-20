@@ -52,5 +52,5 @@ Current modules featured on the platform:
 - Flooding of North Rustico PEI in Hurricane Fiona, 2022 (University of Toronto)
 - Fort McMurray AB Wildfire, 2016 (University of Toronto)
 - Grand Ethiopian Renaissance Dam (University of Toronto)
-- Virtual Water Futures, Saint Catherines ON (Brock)
+- Virtual Water Futures, St. Catharines ON (Brock)
 - Watershed: An Educational Flooding Game (University of Toronto)
