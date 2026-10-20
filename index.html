@@ -2824,7 +2824,7 @@
                         <div className="c-group">
                             <Block label="The Problem" id="mcmurray-problem">
                                 <p>
-                                    The 2016 Fort McMurray wildfire made clear just how quickly a changing climate can turn a familiar risk into a catastrophe. Alberta's forests burn every year, but the conditions feeding those fires have grown more extreme. Fort McMurray is a clear case study in why that matters: a fire that started small and spread completely out of control within days, leaving damage that took years to fully assess.
+                                    The 2016 Fort McMurray wildfire a.k.a. the Horse River Fire, made clear just how quickly a changing climate can turn a familiar risk into a catastrophe. Alberta's forests burn every year, but the conditions feeding those fires have grown more extreme. Fort McMurray is a clear case study in why that matters: a fire that started small and spread completely out of control within days, leaving damage that took years to fully assess.
                                 </p>
                                 <div style={{ margin: '1.75rem 0' }}>
                                     <ImgCard 
@@ -2850,38 +2850,63 @@
                             </Block>
 
                             <Block label="The Solution" id="mcmurray-solution">
-                                <div style={{
-                                    background: '#ffffff',
-                                    border: '1.5px dashed rgba(44, 95, 122, 0.25)',
-                                    borderRadius: '12px',
-                                    padding: '2.75rem 2rem',
-                                    textAlign: 'center',
-                                    margin: '0.5rem 0',
-                                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)'
-                                }}>
-                                    <div style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: '52px',
-                                        height: '52px',
-                                        borderRadius: '50%',
-                                        background: 'rgba(44, 95, 122, 0.08)',
-                                        color: 'var(--primary)',
-                                        marginBottom: '1rem'
-                                    }}>
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>
-                                    </div>
-                                    <h4 style={{ fontSize: '1.25rem', color: 'var(--primary)', fontWeight: '600', marginBottom: '0.5rem', fontFamily: "'DM Sans', sans-serif" }}>
-                                        To Be Updated
-                                    </h4>
-                                    <p style={{ color: 'var(--text-medium)', maxWidth: '520px', margin: '0 auto', lineHeight: '1.6' }}>
-                                        Research solutions and visualizations for the Fort McMurray case study are currently in development and will be updated soon.
-                                    </p>
+                                <p>
+                                    We rebuilt the Fort McMurray fire in a wildfire spread model, then used it to ask two questions: how much worse could it have been in a warmer climate, and how much less severe could it have been if the surrounding forest had been managed differently?
+                                </p>
+
+                                <h3 style={{ fontSize: '1.2rem', color: 'var(--primary)', fontWeight: '700', marginTop: '1.75rem', marginBottom: '0.6rem', fontFamily: "'DM Sans', sans-serif" }}>
+                                    Recreating the Fire
+                                </h3>
+                                <p>
+                                    We modelled fire growing from its ignition in the late afternoon of May 1, 2016, through to midnight at the end of May 3. Evacuation orders for most residents of the city were issued at 5:00 p.m. on May 3, and for all 88,000 residents at 6:49 p.m. The video lets viewers see how quickly the fire closed in on the city compared with how long an evacuation takes.
+                                </p>
+
+                                <h3 style={{ fontSize: '1.2rem', color: 'var(--primary)', fontWeight: '700', marginTop: '1.75rem', marginBottom: '0.6rem', fontFamily: "'DM Sans', sans-serif" }}>
+                                    Inaction: A Warmer Climate
+                                </h3>
+                                <p>
+                                    To show the cost of inaction, we re-ran the fire under three climate scenarios, from low emissions (SSP1-2.6) to intermediate (SSP2-4.5) to high emissions (SSP3-7.0). Each scenario is run many times with varying conditions, and the maps show the share of runs in which each area burned, called its burn probability. The bottom row shows how much that probability rises compared with the baseline conditions of 2016.
+                                </p>
+                                <div style={{ margin: '1.75rem 0' }}>
+                                    <ImgCard 
+                                        src="assets/fort-mcmurray-burn-probability.png" 
+                                        alt="Ensemble burn probability by climate scenario (top) and change relative to baseline (bottom)" 
+                                        caption="Ensemble burn probability by climate scenario (top) and change relative to baseline (bottom)" 
+                                    />
                                 </div>
+                                <p style={{ marginTop: '1.25rem' }}>
+                                    Burn probability rises with each step up in emissions. The largest increases appear as bands along the edges of the burned area, where the fire spreads into land that did not burn as readily under 2016 conditions. In the highest-emissions scenario, some of these areas become far more likely to burn. In other words, the conditions that fed the 2016 fire could make a similar fire spread further.
+                                </p>
+
+                                <h3 style={{ fontSize: '1.2rem', color: 'var(--primary)', fontWeight: '700', marginTop: '1.75rem', marginBottom: '0.6rem', fontFamily: "'DM Sans', sans-serif" }}>
+                                    Action: Thinning and Pruning the Forest
+                                </h3>
+                                <p>
+                                    We tested what would have happened if the forest around the city had been treated in April 2016, before the fire. We modelled three treatments: thinning, pruning, and both combined. Each one changes the fuel types in the model to ones that burn less readily.
+                                </p>
+                                <div style={{ margin: '1.75rem 0' }}>
+                                    <ImgCard 
+                                        src="assets/fort-mcmurray-fuel-treatment.png" 
+                                        alt="Ensemble burn probability by fuel treatment scenario: no treatment (top left), thinned (top right), pruned (bottom left), and thinned and pruned (bottom right)" 
+                                        caption="Ensemble burn probability by fuel treatment scenario: no treatment (top left), thinned (top right), pruned (bottom left), and thinned and pruned (bottom right)" 
+                                    />
+                                </div>
+                                <div style={{ margin: '1.75rem 0' }}>
+                                    <ImgCard 
+                                        src="assets/fort-mcmurray-thinned-trees.jpg" 
+                                        alt="Thinned and pruned forest fuel buffer demonstration" 
+                                        caption="Thinned and pruned forest fuel buffer demonstration: Reducing tree density and removing lower branches diminishes ladder fuels and slows wildfire spread" 
+                                    />
+                                </div>
+                                <p style={{ marginTop: '1.25rem' }}>
+                                    Without treatment, high burn probability covers a large part of the forest south-west of the river and extends toward the built-up areas of the city. With any of the three treatments, the area of high burn probability shrinks and the likelihood of fire spreading toward neighbourhoods drops, even though the forest in the south-west is still likely to burn.
+                                </p>
+                                <p style={{ marginTop: '1rem' }}>
+                                    Treating the forest does not make the landscape fireproof, but it reduces how far and how intensely a fire can spread, which could have bought time for the evacuation that overwhelmed the region’s routes.
+                                </p>
+                                <p style={{ marginTop: '1rem' }}>
+                                    The aim is to move wildfire planning beyond seasonal outlooks and historical burn patterns. By modelling the fire under different climates and different forest management choices, communities can see how prescribed burns and tree pruning would change their own risk before the next ignition.
+                                </p>
                             </Block>
                         </div>
                         <NavRow prev={{ href: 'north-rustico-viz', label: 'Flooding of North Rustico PEI in Hurricane Fiona, 2022' }} next={{ href: 'gerd', label: 'Grand Ethiopian Renaissance Dam' }} />
@@ -2966,6 +2991,32 @@
                                         src="assets/chris-inland-100yr.jpg" 
                                         alt="Visualizations of inland flooding in and around Charlottetown (Future Climate: 100yrs)" 
                                         caption="Visualizations of inland flooding in and around Charlottetown (Future Climate: 100yrs)" 
+                                    />
+                                </div>
+                                <h3 style={{ fontSize: '1.2rem', color: 'var(--primary)', fontWeight: '700', marginTop: '2rem', marginBottom: '0.6rem', fontFamily: "'DM Sans', sans-serif" }}>
+                                    Coastal Change Information Sheet
+                                </h3>
+                                <p>
+                                    CHRIS can be used to display specific coastal change information at the neighbourhood scale. Given a precise location, the tool returns the area’s shore type and exposure to flooding. It also provides a timeline of coastal change beginning in 1968 and ranging up to 2022 depending on available data, crucial information to homeowners and developers.
+                                </p>
+                                <div style={{ margin: '1.75rem 0' }}>
+                                    <ImgCard 
+                                        src="assets/chris-coastal-change.png" 
+                                        alt="Coastal Change Information Sheet for Hillsborough, Charlottetown" 
+                                        caption="Coastal Change Information Sheet for Hillsborough, Charlottetown" 
+                                    />
+                                </div>
+                                <h3 style={{ fontSize: '1.2rem', color: 'var(--primary)', fontWeight: '700', marginTop: '2rem', marginBottom: '0.6rem', fontFamily: "'DM Sans', sans-serif" }}>
+                                    Historical Storm Visualizations
+                                </h3>
+                                <p>
+                                    The tool also provides clear visualizations of the impact of historical events, notably Hurricanes Dorian (2019) and Fiona (2022). This data illustrates the impact of these extreme weather events, painting a clear picture of the island’s vulnerability to coastal and inland flooding.
+                                </p>
+                                <div style={{ margin: '1.75rem 0' }}>
+                                    <ImgCard 
+                                        src="assets/chris-dorian-2019.png" 
+                                        alt="Visualizations of flooding around Charlottetown after Hurricane Dorian (2019)" 
+                                        caption="Visualizations of flooding around Charlottetown after Hurricane Dorian (2019)" 
                                     />
                                 </div>
                             </Block>
@@ -3221,32 +3272,33 @@
             const levels = [
                 {
                     title: "Level 1 – Minute",
-                    desc: "Survive the immediate flood.",
+                    desc: "Drops you into the midst of a flood with a minute to prepare. As you hear of the incoming disaster from the news, you are left with little to no time to gather your effects and run. This level is meant to be impossible, showing how dangerous a flash flood can be without warning.",
                     img: "assets/watershed-1.jpg"
                 },
                 {
                     title: "Level 2 – Hour",
-                    desc: "Pack and evacuate: phone, baby and baby bag, food/water/clothes, first aid kit, important documents (e.g. ID).",
+                    desc: "Allows you an hour of preparation. You are given a checklist of essentials to gather, notably food, water, and your infant child. You fare much better than in level one, but the short timeframe quickly catches up as you try to escape the rising tides.",
                     img: "assets/watershed-2.jpg"
                 },
                 {
                     title: "Level 3 – Day",
-                    desc: "Protect the home: sandbags, window sealant, shut off electricity/water, move valuables to the attic.",
+                    desc: "Granted a day of preparation. With more time comes more options: build sandbag walls, apply sealant to windows, and shut off main water and electricity to protect your house rather than only escape with your life.",
                     img: "assets/watershed-3.jpg"
                 },
                 {
                     title: "Level 4 – Week",
-                    desc: "Prepare the community: clean sump pumps and backwater valves, temporary sand barriers along the river, community evacuation plan, distribute flood-ready resources, clean storm drains.",
+                    desc: "Make decisions to protect your community. New areas unlock, such as City Hall to request barrier materials and the Community Centre to create neighbourhood evacuation plans and organize community-wide flood mitigation.",
                     img: "assets/watershed-4.jpg"
                 },
                 {
-                    title: "Level 5 – Year",
-                    desc: "Plan for resilience: permanent levee, sump pumps and backup generators, emergency water tank, public education, protect cell towers, plan alternative routes.",
+                    title: "Level 5 – Resilience Planning",
+                    badge: "In Development",
+                    desc: "Plan for resilience: permanent levees, sump pumps and backup generators, emergency water tanks, public education, protecting cell towers, and planning alternative routes.",
                     img: "assets/watershed-5.jpg"
                 },
                 {
-                    title: "Level 6 – Decade",
-                    desc: "Adapt infrastructure in a real place (Toronto): increase storm drain capacity, elevate key buildings and streets, widen river channels, increase permeable ground, improve flood forecasting.",
+                    title: "Level 6 – Year",
+                    desc: "Allows for an entire year of preparation, faced with a map of the entire city. You take on the role of a city planner allocating municipal resources into city-wide flood mitigation initiatives, managing a city budget to build a flood-resilient city.",
                     img: "assets/watershed-6.jpg"
                 }
             ];
@@ -3270,10 +3322,10 @@
                             </Block>
                             <Block label="The Solution" id="game-solution">
                                 <p>
-                                    Watershed was developed to show how video games can be used as a form of communication. This project proposes an educational video game that raises flood awareness through immersive scenarios and interactive decision-making. The six levels progressively expand in both time and geographic scale, moving from immediate personal survival to household preparedness, community-level planning, and long-term infrastructure adaptation.
+                                    Watershed is a flood preparation game developed by University of Toronto student Amber Liu. The aim of the game is to prepare for an incoming flood given varying amount of preparation time. A timer looms over the player and every action also costs time, giving the game a real sense of urgency and making every decision feel costly. It is meant to convey the importance of planning and mitigation when dealing with climate disasters, ultimately demonstrating the value of preventative measures against floods and the serious implications of climate change.
                                 </p>
                                 <p>
-                                    By experiencing flooding from the perspective of those affected, making decisions, and observing the consequences of their actions, players gain a more personal understanding of flood impacts. The game encourages critical thinking and helps players connect the virtual experience to real-world flooding events, inspiring greater awareness of flood risks and the importance of collective action.
+                                    By experiencing flooding from the perspective of those affected, making decisions, and observing the consequences of their actions, players gain a more personal understanding of flood impacts. The six levels progressively expand in both time and geographic scale—from immediate personal survival to household preparedness, community-level planning, and long-term municipal infrastructure adaptation.
                                 </p>
                             </Block>
                             <Block label="Visualizations" id="game-levels">
@@ -3309,15 +3361,32 @@
                                                 borderTop: '1px solid rgba(44, 95, 122, 0.08)',
                                                 borderLeft: '4px solid var(--accent)'
                                             }}>
-                                                <h4 style={{ 
-                                                    fontSize: '1.1rem', 
-                                                    fontWeight: '700', 
-                                                    color: 'var(--primary)', 
-                                                    fontFamily: "'DM Sans', sans-serif", 
-                                                    margin: '0 0 0.5rem 0' 
-                                                }}>
-                                                    {lvl.title}
-                                                </h4>
+                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                                                    <h4 style={{ 
+                                                        fontSize: '1.1rem', 
+                                                        fontWeight: '700', 
+                                                        color: 'var(--primary)', 
+                                                        fontFamily: "'DM Sans', sans-serif", 
+                                                        margin: 0 
+                                                    }}>
+                                                        {lvl.title}
+                                                    </h4>
+                                                    {lvl.badge && (
+                                                        <span style={{
+                                                            fontSize: '0.72rem',
+                                                            fontWeight: '700',
+                                                            letterSpacing: '0.04em',
+                                                            textTransform: 'uppercase',
+                                                            padding: '2px 8px',
+                                                            borderRadius: '10px',
+                                                            background: 'rgba(181, 74, 22, 0.1)',
+                                                            color: 'var(--accent)',
+                                                            border: '1px solid rgba(181, 74, 22, 0.25)'
+                                                        }}>
+                                                            {lvl.badge}
+                                                        </span>
+                                                    )}
+                                                </div>
                                                 <p style={{ 
                                                     fontSize: '0.94rem', 
                                                     lineHeight: '1.65', 
@@ -3481,12 +3550,6 @@
 
         /* ─── PARTNERS ─── */
         function PartnersPage() {
-            const partners = [
-                { name: 'Climate Smart Lab, UPEI', url: 'https://climatesmartlab.ca/' },
-                { name: 'Dynamic Graphics Project, University of Toronto', url: 'https://www.dgp.toronto.edu/' },
-                { name: 'Ontario College of Art and Design', url: 'https://www.ocadu.ca/' },
-                { name: 'School of Cities, University of Toronto', url: 'https://schoolofcities.utoronto.ca/' },
-            ];
             return (
                 <>
                     <div className="content-page">
@@ -3494,17 +3557,7 @@
                         <SectionTracker name="partners" />
                         <div className="c-group">
                             <Block full>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    {partners.map((p, i) => (
-                                        <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
-                                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.25rem', background: 'white', border: '1px solid var(--border)', borderLeft: '3px solid var(--accent)', textDecoration: 'none', color: 'var(--ink)', transition: 'all 0.2s', gap: '1rem' }}
-                                            onMouseOver={e => { e.currentTarget.style.borderLeftColor = 'var(--primary)'; e.currentTarget.style.background = 'var(--blue-pale)'; }}
-                                            onMouseOut={e => { e.currentTarget.style.borderLeftColor = 'var(--accent)'; e.currentTarget.style.background = 'white'; }}>
-                                            <span style={{ fontSize: '0.975rem', fontWeight: '500', color: 'var(--primary)', fontFamily: "'DM Sans', sans-serif" }}>{p.name}</span>
-                                            <svg style={{ flexShrink: 0, opacity: 0.35 }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
-                                        </a>
-                                    ))}
-                                </div>
+                                <p style={{ fontSize: '1.05rem', color: 'var(--text-medium)', margin: 0 }}>Coming soon</p>
                             </Block>
                         </div>
                     </div>
@@ -3518,6 +3571,7 @@
             const institutional = [
                 { name: 'Department of Computer Science, University of Toronto', url: 'https://web.cs.toronto.edu/' },
                 { name: 'Holgan 8T8 Foundation', url: null },
+                { name: 'Lawson Climate Institute, University of Toronto', url: 'https://lci.utoronto.ca/' },
                 { name: 'School of Cities, University of Toronto', url: 'https://schoolofcities.utoronto.ca/' },
                 { name: 'SideFX', url: 'https://www.sidefx.com/' },
             ];

@@ -87,7 +87,7 @@ index.html
     ├── Global Utility Components (<ImgCard>, <ExpandableImage>, <Block>, <NavRow>, <Burger>, etc.)
     ├── Navigation Bar (<Navigation />) & Footer (<Footer />)
     ├── General Pages (<LandingPage />, <ClimateChangePage />, <MethodologyPage />, etc.)
-    ├── Case Study Case Pages (<ChrisUpei />, <UpeiSimulator />, <GerdDam />, <WatershedGame />, etc.)
+    ├── Case Study Case Pages (<ChrisUpei />, <UpeiSimulator />, <GerdDam />, <BrockWaterFutures />, <WatershedGame />, <FortMcMurray />, etc.)
     ├── Who We Are Pages (<TeamPage />, <PartnersPage />, <SponsorsPage />, <ContactPage />, <EventsPage />)
     └── Main Application Entry & Router (<App />)
 ```
