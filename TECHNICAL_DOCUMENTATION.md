@@ -310,7 +310,7 @@ All global styles and CSS variables are located in `<style>` at the top of `inde
 
 ### 7.2 Core Layout Components
 - `.content-page`: Universal page wrapper with `max-width: 1240px` and responsive horizontal padding.
-- `.content-page-header`: Full-width dark blue gradient hero banner with glowing bottom edge accent line.
+- `.content-page-header`: Full-width dark blue gradient hero banner.
 - `.c-block`: Two-column split layout (`240px` label on the left + `1fr` content on the right).
 - `.c-block.full`: Single-column full-width block.
 - `.nav-dropdown`: Desktop floating dropdown menu with smooth slide transitions.
